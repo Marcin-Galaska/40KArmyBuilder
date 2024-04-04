@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">40K Army Builder (New)</string>
+
+    <string name="back_button">Back</string>
+
+    <string name="home_screen_top_bar_text">40K ARMY BUILDER</string>
+    <string name="home_screen_button">Enter</string>
+    <string name="home_screen_text">Welcome to the Warhammer 40K Army Builder app!</string>
+</resources>
