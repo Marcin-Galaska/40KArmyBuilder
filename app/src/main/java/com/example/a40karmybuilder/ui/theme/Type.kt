@@ -34,6 +34,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp
     ),
+    displaySmall = TextStyle(
+        fontFamily = Anton,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
     labelSmall = TextStyle(
         fontFamily = SpaceMarine,
         fontWeight = FontWeight.Normal,

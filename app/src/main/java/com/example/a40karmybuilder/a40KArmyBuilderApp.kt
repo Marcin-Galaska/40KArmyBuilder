@@ -29,7 +29,7 @@ fun a40KArmyBuilderApp(navController: NavHostController = rememberNavController(
     a40KArmyBuilderNavHost(navController = navController)
 }
 
-// Scaffold top bar
+// Scaffold's top bar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun a40KArmyBuilderTopAppBar(

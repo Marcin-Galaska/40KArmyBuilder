@@ -41,12 +41,12 @@ object HomeDestination : NavigationDestination {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
-    navigateToOverviewList: () -> Unit,
+    navigateToFactionOverviewList: () -> Unit,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val homeUiState by viewModel.homeUiState.collectAsState()
+    // val UiState by viewModel.homeUiState.collectAsState()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -72,7 +72,7 @@ fun HomeScreen(
                 modifier = Modifier.weight(1f)
             )
             OutlinedButton(
-                onClick = { },
+                onClick = navigateToFactionOverviewList,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .fillMaxWidth()

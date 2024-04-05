@@ -1,5 +1,7 @@
 package com.example.a40karmybuilder.data
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

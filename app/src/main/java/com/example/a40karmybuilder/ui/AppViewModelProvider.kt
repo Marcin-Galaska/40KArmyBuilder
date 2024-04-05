@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.a40karmybuilder.a40KArmyBuilderApplication
+import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListViewModel
 import com.example.a40karmybuilder.ui.home.HomeViewModel
 
 // Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -28,13 +29,13 @@ object AppViewModelProvider {
 //            ItemEntryViewModel(inventoryApplication().container.itemsRepository)
 //        }
 //
-//        // Initializer for ItemDetailsViewModel
-//        initializer {
-//            ItemDetailsViewModel(
-//                this.createSavedStateHandle(),
-//                inventoryApplication().container.itemsRepository
-//            )
-//        }
+        // Initializer for FactionOverviewListViewModel
+        initializer {
+            FactionOverviewListViewModel(
+                this.createSavedStateHandle(),
+                a40karmybuilderApplication().container.armiesRepository
+            )
+        }
     }
 }
 
