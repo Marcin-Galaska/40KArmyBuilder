@@ -20,9 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.a40karmybuilder.R.string
 import com.example.a40karmybuilder.ui.navigation.a40KArmyBuilderNavHost
 
-/**
- * Top level composable that represents screens for the application.
- */
+// Top level composable that represents screens for the application.
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun a40KArmyBuilderApp(navController: NavHostController = rememberNavController()) {

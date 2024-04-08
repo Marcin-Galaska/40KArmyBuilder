@@ -1,7 +1,7 @@
 Ekrany (Destinations):
     1. Home - Ekran powitalny
     2. FactionOverviewList - Lista wszystkich armii
-    3. FactionOverview - Opis i skrót danej armii
+    3. FactionOverviewDetails - Opis i skrót danej armii
     4. CreatedArmiesList - Lista stworzonych armii
     5. NewArmySelection - Ekran wyboru armii do stworzenia nowej listy
     5. CreatedArmyComposition - Główny ekran edycji armii

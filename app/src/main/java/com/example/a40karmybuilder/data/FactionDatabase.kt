@@ -6,28 +6,30 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Army::class],
+    entities = arrayOf(Faction::class),
     version = 1,
     exportSchema = false
 )
-abstract class ArmyDatabase : RoomDatabase() {
-    abstract fun armyDao(): ArmyDao
+abstract class FactionDatabase : RoomDatabase() {
+    abstract fun factionDao(): FactionDao
 
     companion object {
         @Volatile
-        private var Instance: ArmyDatabase? = null
+        private var Instance: FactionDatabase? = null
 
-        fun getDatabase(context: Context): ArmyDatabase {
-            // if the Instance is not null, return it, otherwise create a new database instance.
+        fun getDatabase(context: Context): FactionDatabase {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(
                     context,
-                    ArmyDatabase::class.java,
-                    "army_database"
+                    FactionDatabase::class.java,
+                    "faction_database"
                 )
+                    .createFromAsset("database/factions.db")
                     .fallbackToDestructiveMigration()
                     .build()
-                    .also { Instance = it }
+                    .also {
+                        Instance = it
+                    }
             }
         }
     }

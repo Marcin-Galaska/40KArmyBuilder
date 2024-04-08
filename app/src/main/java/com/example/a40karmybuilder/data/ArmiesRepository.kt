@@ -3,13 +3,13 @@ package com.example.a40karmybuilder.data
 import kotlinx.coroutines.flow.Flow
 
 interface ArmiesRepository {
-    fun getAllArmiesStream(): Flow<List<Army>>
+    fun getAllItemsStream(): Flow<List<Army>>
 
-    fun getArmyStream(id: Int): Flow<Army?>
+    fun getItemStream(id: Int): Flow<Army?>
 
-    suspend fun insertArmy(army: Army)
+    suspend fun insertItem(army: Army)
 
-    suspend fun deleteArmy(army: Army)
+    suspend fun deleteItem(army: Army)
 
-    suspend fun updateArmy(army: Army)
+    suspend fun updateItem(army: Army)
 }

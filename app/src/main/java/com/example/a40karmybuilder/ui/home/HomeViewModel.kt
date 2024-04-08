@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 // ViewModel to retrieve all items in the Room database.
 class HomeViewModel(armiesRepository: ArmiesRepository): ViewModel() {
     val homeUiState: StateFlow<HomeUiState> =
-        armiesRepository.getAllArmiesStream().map {
+        armiesRepository.getAllItemsStream().map {
             HomeUiState(it)
         }
             .stateIn(

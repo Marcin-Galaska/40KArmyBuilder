@@ -6,5 +6,6 @@ import androidx.compose.ui.unit.dp
 
 val Shapes = Shapes(
     small = CutCornerShape(50.dp),                                  //Circle
-    medium = CutCornerShape(bottomStart = 12.dp, topEnd = 12.dp)    //Corner-cut card
+    medium = CutCornerShape(bottomEnd = 12.dp, topStart = 12.dp),   //Corner-cut medium
+    large = CutCornerShape(bottomEnd = 18.dp, topStart = 18.dp)
 )

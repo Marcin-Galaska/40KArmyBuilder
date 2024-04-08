@@ -9,6 +9,8 @@
 
     <string name="faction_overview_list_top_bar_text">FACTIONS</string>
 
+    <string name="faction_overview_details_top_bar_text">FACTION OVERVIEW</string>
+
     <string name="adepta_sororitas_name">Adepta Sororitas</string>
     <string name="adepta_sororitas_desc">The Adepta Sororitas, colloquially called the \"Sisterhood\", whose military arm is also known as the Sisters of Battle and formerly as the Daughters of the Emperor, are an all-female division of the Imperium of Man\'s state church known as the Ecclesiarchy or, more formally, as the Adeptus Ministorum.\n\nThe Sisterhood\'s Orders Militant serve as the Ecclesiarchy\'s armed forces, mercilessly rooting out spiritual corruption and heresy within Humanity and every organisation of the Adeptus Terra.\n\nThe Sisterhood serves as the Ministorum\'s only official military force because the Decree Passive laid down by the reformist Ecclesiarch Sebastian Thor held that in the wake of the Age of Apostasy\'s Reign of Blood in the 36th Millennium, the Ecclesiarchy cannot maintain any \"men under arms.\"\n\nThis command was supposed to limit the power of the Ecclesiarchy by preventing it from maintaining the massive armies of the faithful Frateris Templar it once used to abuse its power from the 32nd to the 36th Millennia.\n\nHowever, the Adeptus Ministorum has been able to circumvent this decree with the subtle acquiescence of the Inquisition by deploying the all-female military force of the Sisterhood\'s Orders Militant.</string>
     <string name="adepta_sororitas_quote">By bolter shell, flamer burst and melta blast, the mutant, the heretic and the traitor alike are cleansed of their sin of existence. So has it been for five millennia, so shall it be unto the end of time.</string>
