@@ -16,6 +16,7 @@ class FactionViewModel(
     fun getFaction(id: Int): Flow<Faction> = factionDao.getItem(id)
 
     companion object {
+        var selectedFactionId: Int = 0
         val factory : ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)

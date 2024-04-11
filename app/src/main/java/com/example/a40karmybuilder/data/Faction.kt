@@ -16,11 +16,6 @@ data class Faction(
     @NonNull @ColumnInfo(name = "games_workshop_url") val gamesWorkshopUrl: String,
     @NonNull @ColumnInfo(name = "warhammer_wiki_url") val warhammerWikiUrl: String,
     @NonNull @ColumnInfo(name = "wahapedia_url") val wahapediaUrl: String
-//    @DrawableRes @ColumnInfo(name = "banner") val bannerResourceId: Int,
-//    @DrawableRes @ColumnInfo(name = "logo") val logoResourceId: Int,
-//    @DrawableRes @ColumnInfo(name = "symbol") val symbolResourceId: Int,
-//    @StringRes @ColumnInfo(name = "name") val nameResourceId: Int,
-//    @StringRes @ColumnInfo(name = "description") val descriptionResourceId: Int,
-//    @StringRes @ColumnInfo(name = "quote") val quoteResourceId: Int,
-//    @StringRes @ColumnInfo(name = "quote_source") val quoteSourceResourceId: Int
 )
+
+

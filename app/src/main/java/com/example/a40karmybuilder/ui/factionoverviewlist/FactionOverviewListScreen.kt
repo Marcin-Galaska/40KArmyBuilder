@@ -35,7 +35,20 @@ import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.data.Faction
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 import android.content.res.Resources
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.widget.TextViewCompat.setTextAppearance
 
 object FactionOverviewListDestination : NavigationDestination {
     override val route = "faction_overview_list"
@@ -45,7 +58,7 @@ object FactionOverviewListDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FactionOverviewListScreen(
-    navigateToFactionDetails: (Int) -> Unit,
+    navigateToFactionDetails: () -> Unit,
     viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
@@ -70,7 +83,7 @@ fun FactionOverviewListScreen(
                 FactionCard(
                     faction = it,
                     onCardClick = navigateToFactionDetails,
-                    modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
+                    modifier = Modifier.padding(dimensionResource(R.dimen.padding_tiny))
                 )
             }
         }
@@ -81,8 +94,8 @@ fun FactionOverviewListScreen(
 @Composable
 fun FactionCard(
     faction: Faction,
-    onCardClick: (Int) -> Unit,
-    // viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
+    onCardClick: () -> Unit,
+    viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -92,35 +105,63 @@ fun FactionCard(
         "drawable",
         context.packageName
     )
-    // val onClick by viewModel.getFaction(id = faction.id).collectAsState(null)
+    val cardResourceId = context.resources.getIdentifier(
+        faction.drawablePrefix + "_card",
+        "drawable",
+        context.packageName
+    )
 
     Card(
         shape = MaterialTheme.shapes.large,
         modifier = modifier
             .height(dimensionResource(R.dimen.faction_overview_list_card_height))
             .clickable(
-                onClick = { onCardClick(faction.id) }
+                onClick = {
+                    FactionViewModel.selectedFactionId = faction.id
+                    onCardClick()
+                }
             )
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(dimensionResource(R.dimen.padding_small))
-        ) {
-            Text(
-                text = factionName,
-                style = MaterialTheme.typography.displayMedium,
-                modifier = modifier
-                    //.padding(dimensionResource(R.dimen.padding_small))
-                    .align(Alignment.CenterVertically)
+        Box{
+            Image(
+                painter = painterResource(cardResourceId),
+                contentDescription = "Faction Card Background Image",
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxSize()
             )
-            Spacer(
-                modifier = Modifier.weight(1f)
-            )
-            FactionIcon(logoResourceId)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_small))
+            ) {
+                Text(
+                    text = factionName,
+                    style = MaterialTheme.typography.displayMedium.copy(
+                        shadow = Shadow(
+                            color = Color.Black,
+                            offset = Offset(4f, 4f),
+                            blurRadius = 8f
+                        )
+                    ),
+                    modifier = modifier
+                        .align(Alignment.CenterVertically)
+                )
+                Spacer(
+                    modifier = Modifier.weight(1f)
+                )
+                FactionIcon(logoResourceId)
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowRight,
+                    contentDescription = "Faction Card Right Arrow",
+                    modifier = modifier
+                        .align(Alignment.CenterVertically)
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun FactionIcon(
@@ -129,7 +170,6 @@ fun FactionIcon(
 ) {
     Image(
         modifier = modifier
-            .size(dimensionResource(id = R.dimen.image_size))
             .padding(dimensionResource(id = R.dimen.padding_small)),
         contentScale = ContentScale.Fit,
         painter = painterResource(factionLogo),

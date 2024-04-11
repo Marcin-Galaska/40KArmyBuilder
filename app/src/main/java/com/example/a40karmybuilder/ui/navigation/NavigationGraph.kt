@@ -25,7 +25,7 @@ fun a40KArmyBuilderNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = FactionOverviewDetailsDestination.route,
+        startDestination = HomeDestination.route,
         modifier = modifier
     ) {
         // Home screen
@@ -48,11 +48,10 @@ fun a40KArmyBuilderNavHost(
 
         // Faction Overview Details screen
         composable(
-            //route = FactionOverviewDetailsDestination.route
             route = FactionOverviewDetailsDestination.route
         ) {
             val viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory)
-            val faction by viewModel.getFaction(id = 3).collectAsState(null)
+            val faction by viewModel.getFaction(FactionViewModel.selectedFactionId).collectAsState(null)
 
             faction?.let { fac ->
                 FactionOverviewDetailsScreen(
@@ -61,17 +60,5 @@ fun a40KArmyBuilderNavHost(
                 )
             }
         }
-
-//        composable(
-//            route = FactionOverviewDetailsDestination.routeWithArgs,
-//            arguments = listOf(navArgument(FactionOverviewDetailsDestination.factionNameArg) {
-//                type = NavType.StringType
-//            })
-//        ) {
-//            FactionOverviewDetailsScreen(
-//                factionName = it,
-//                navigateBack = { navController.navigateUp() }
-//            )
-//        }
     }
 }

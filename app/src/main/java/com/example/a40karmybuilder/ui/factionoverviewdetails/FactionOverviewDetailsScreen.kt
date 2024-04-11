@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,7 +33,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
@@ -46,8 +43,6 @@ import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 object FactionOverviewDetailsDestination : NavigationDestination {
     override val route = "faction_overview_details"
     override val titleRes = R.string.faction_overview_details_top_bar_text
-    val factionIdArg = "factionId"
-    val routeWithArgs = "$route/{$factionIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -222,6 +217,7 @@ fun UriButton(
             .fillMaxWidth()
             .height(45.dp)
             .padding(
+                horizontal = dimensionResource(R.dimen.padding_tiny),
                 vertical = dimensionResource(R.dimen.padding_tiny)
             )
     ) {

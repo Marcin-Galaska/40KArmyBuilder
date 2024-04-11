@@ -1,9 +1,12 @@
 package com.example.a40karmybuilder.ui.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,15 +24,22 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
-import com.example.a40karmybuilder.ui.AppViewModelProvider
+import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 
 object HomeDestination : NavigationDestination {
@@ -42,14 +52,14 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     navigateToFactionOverviewList: () -> Unit,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    // val UiState by viewModel.homeUiState.collectAsState()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             a40KArmyBuilderTopAppBar(
                 title = stringResource(HomeDestination.titleRes),
@@ -58,31 +68,44 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = modifier
-                .padding(dimensionResource(id = R.dimen.padding_medium))
+        Box(
+            modifier = modifier.fillMaxSize()
         ) {
-            Text(
-                text = stringResource(R.string.home_screen_text),
-                style = MaterialTheme.typography.displayLarge,
+            Image(
+                modifier = modifier.fillMaxHeight(),
+                contentScale = ContentScale.FillHeight,
+                painter = painterResource(R.drawable.background_homescreen),
+                contentDescription = "Background"
+            )
+            Column(
                 modifier = modifier
-                    .padding(innerPadding)
-            )
-            Spacer(
-                modifier = Modifier.weight(1f)
-            )
-            OutlinedButton(
-                onClick = navigateToFactionOverviewList,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(dimensionResource(id = R.dimen.padding_medium)),
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(stringResource(R.string.home_screen_button))
+                Spacer(modifier = Modifier.weight(1f)) // Spacer to push the text to the center
+                Text(
+                    text = stringResource(R.string.home_screen_text),
+                    style = MaterialTheme.typography.displayLarge.copy(
+                        shadow = Shadow(
+                            color = Color.Black,
+                            offset = Offset(4f, 4f),
+                            blurRadius = 8f
+                        )
+                    ),
+                    textAlign = TextAlign.Center,
+                    modifier = modifier.padding(innerPadding)
+                )
+                Spacer(modifier = Modifier.weight(1f)) // Spacer to push the button to the bottom
+                OutlinedButton(
+                    onClick = navigateToFactionOverviewList,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.home_screen_button))
+                }
+                Spacer(modifier = Modifier.height(36.dp))
             }
-            Spacer(
-                modifier = Modifier
-                    .height(36.dp)
-            )
         }
     }
 }
