@@ -48,8 +48,8 @@ val Typography = Typography(
         fontSize = 12.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = SpaceMarine,
+        fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 6.sp
     )
 )

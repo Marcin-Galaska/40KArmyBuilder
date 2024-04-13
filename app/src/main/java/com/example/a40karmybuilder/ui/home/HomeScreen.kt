@@ -35,6 +35,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a40karmybuilder.R
@@ -94,7 +95,8 @@ fun HomeScreen(
                         )
                     ),
                     textAlign = TextAlign.Center,
-                    modifier = modifier.padding(innerPadding)
+                    modifier = modifier
+                        .padding(innerPadding)
                 )
                 Spacer(modifier = Modifier.weight(1f)) // Spacer to push the button to the bottom
                 OutlinedButton(
@@ -104,7 +106,21 @@ fun HomeScreen(
                 ) {
                     Text(stringResource(R.string.home_screen_button))
                 }
-                Spacer(modifier = Modifier.height(36.dp))
+                Text(
+                    text = "Unit data based on wahapedia.ru. Last update: 2024.04.12.",
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        shadow = Shadow(
+                            color = Color.Black,
+                            offset = Offset(4f, 4f),
+                            blurRadius = 8f
+                        )
+                    ),
+                    textAlign = TextAlign.Center,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(id = R.dimen.padding_tiny))
+                )
+                Spacer(modifier = Modifier.height(20.dp)) // Spacer to push the button above system nav bar
             }
         }
     }

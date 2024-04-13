@@ -1,122 +1,485 @@
 package com.example.a40karmybuilder.data
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
-/*
-    * UNIT CATEGORIES:
-    * 1 - Character
-    * 2 - Battleline
-    * 3 - Dedicated Transport
-    * 4 - Other
-*/
-
+@Entity(tableName = "unspecified")
 open class Unit(
+    @PrimaryKey @ColumnInfo(name = "necessary_evil") open var necessaryEvil: Int = 0,   //Required @PrimaryKey field
     @Ignore open val id: Int = 0,
-    @Ignore open val drawablePrefix: String = "unspecified",
-    @Ignore open val wahapediaArmyUrl: String = "unspecified",
     @Ignore open val name: String = "unspecified",
+    @Ignore open val m: String = "NaN",
+    @Ignore open val t: String = "NaN",
+    @Ignore open val sv: String = "NaN",
+    @Ignore open val w: String = "NaN",
+    @Ignore open val ld: String = "NaN",
+    @Ignore open val oc: String = "NaN",
+    @Ignore open val invulnerableSave: String? = null,
     @Ignore open val pointsCost: Int = 0,
-    @Ignore open val movement: Int = 0,
-    @Ignore open val toughness: Int = 0,
-    @Ignore open val armourSave: Int = 0,
-    @Ignore open val wounds: Int = 0,
-    @Ignore open val leadership: Int = 0,
-    @Ignore open val objectiveControl: Int = 0,
-    @Ignore open val unitComposition: String = "unspecified",
-    @Ignore open val unitEquipment: String = "unspecified",
+    @Ignore open val composition: String = "unspecified",
     @Ignore open val keywords: String = "unspecified",
-    @Ignore open val isEpicHero: Int = 0,
-    @Ignore open val category: Int = 0,
-    @Ignore open val customWahapediaUriUnit: String? = null
-)
+    @Ignore open val description: String = "unspecified"
+) {
+    constructor(): this(0, 0, "unspecified", "NaN", "NaN", "NaN", "NaN", "NaN", "NaN", "NaN", 0, "unspecified", "unspecified", "unspecified")
+}
 
-@Entity(tableName = "adepta_sororitas_units")
+@Entity(tableName = "adepta-sororitas", ignoredColumns = ["necessary_evil"])
 data class AdeptaSororitasUnit(
     @PrimaryKey override val id: Int = 0,
-    @NonNull @ColumnInfo(name = "drawable_prefix") override val drawablePrefix: String = "adeptasororitas",
-    @NonNull @ColumnInfo(name = "wahapedia_army_url") override val wahapediaArmyUrl: String = "https://wahapedia.ru/wh40k10ed/factions/adeptta-sororitas/",
-    @NonNull @ColumnInfo(name = "name") override val name: String = "Unspecified Adepta Sororitas Unit",
-    @NonNull @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
-    @NonNull @ColumnInfo(name = "movement") override val movement: Int = 0,
-    @NonNull @ColumnInfo(name = "toughness") override val toughness: Int = 0,
-    @NonNull @ColumnInfo(name = "armour_save") override val armourSave: Int = 0,
-    @NonNull @ColumnInfo(name = "wounds") override val wounds: Int = 0,
-    @NonNull @ColumnInfo(name = "leadership") override val leadership: Int = 0,
-    @NonNull @ColumnInfo(name = "objective_control") override val objectiveControl: Int = 0,
-    @NonNull @ColumnInfo(name = "unit_composition") override val unitComposition: String = "0 Unspecified Units",
-    @NonNull @ColumnInfo(name = "unit_equipment") override val unitEquipment: String = "The Unspecified Unit model is equipped with: NONE",
-    @NonNull @ColumnInfo(name = "keywords") override val keywords: String = "KEYWORDS: NONE",
-    @NonNull @ColumnInfo(name = "is_epic_hero") override val isEpicHero: Int = 0,
-    @NonNull @ColumnInfo(name = "category") override val category: Int = 4,
-    @ColumnInfo(name = "custom_wahapedia_uri_unit") override val customWahapediaUriUnit: String? = null
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
 ) : Unit()
 
-@Entity(tableName = "adeptus_custodes_units")
+@Entity(tableName = "adeptus-custodes", ignoredColumns = ["necessary_evil"])
 data class AdeptusCustodesUnit(
     @PrimaryKey override val id: Int = 0,
-    @NonNull @ColumnInfo(name = "drawable_prefix") override val drawablePrefix: String = "adeptuscustodes",
-    @NonNull @ColumnInfo(name = "wahapedia_army_url") override val wahapediaArmyUrl: String = "https://wahapedia.ru/wh40k10ed/factions/adeptus-custodes/",
-    @NonNull @ColumnInfo(name = "name") override val name: String = "Unspecified Adeptus Custodes Unit",
-    @NonNull @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
-    @NonNull @ColumnInfo(name = "movement") override val movement: Int = 0,
-    @NonNull @ColumnInfo(name = "toughness") override val toughness: Int = 0,
-    @NonNull @ColumnInfo(name = "armour_save") override val armourSave: Int = 0,
-    @NonNull @ColumnInfo(name = "wounds") override val wounds: Int = 0,
-    @NonNull @ColumnInfo(name = "leadership") override val leadership: Int = 0,
-    @NonNull @ColumnInfo(name = "objective_control") override val objectiveControl: Int = 0,
-    @NonNull @ColumnInfo(name = "unit_composition") override val unitComposition: String = "0 Unspecified Units",
-    @NonNull @ColumnInfo(name = "unit_equipment") override val unitEquipment: String = "The Unspecified Unit model is equipped with: NONE",
-    @NonNull @ColumnInfo(name = "keywords") override val keywords: String = "KEYWORDS: NONE",
-    @NonNull @ColumnInfo(name = "is_epic_hero") override val isEpicHero: Int = 0,
-    @NonNull @ColumnInfo(name = "category") override val category: Int = 4,
-    @ColumnInfo(name = "custom_wahapedia_uri_unit") override val customWahapediaUriUnit: String? = null
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
 ) : Unit()
 
-@Entity(tableName = "adeptus_mechanicus_units")
+@Entity(tableName = "adeptus-mechanicus", ignoredColumns = ["necessary_evil"])
 data class AdeptusMechanicusUnit(
     @PrimaryKey override val id: Int = 0,
-    @NonNull @ColumnInfo(name = "drawable_prefix") override val drawablePrefix: String = "adeptusmechanicus",
-    @NonNull @ColumnInfo(name = "wahapedia_army_url") override val wahapediaArmyUrl: String = "https://wahapedia.ru/wh40k10ed/factions/adeptus-mechanicus/",
-    @NonNull @ColumnInfo(name = "name") override val name: String = "Unspecified Adeptus Mechanicus Unit",
-    @NonNull @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
-    @NonNull @ColumnInfo(name = "movement") override val movement: Int = 0,
-    @NonNull @ColumnInfo(name = "toughness") override val toughness: Int = 0,
-    @NonNull @ColumnInfo(name = "armour_save") override val armourSave: Int = 0,
-    @NonNull @ColumnInfo(name = "wounds") override val wounds: Int = 0,
-    @NonNull @ColumnInfo(name = "leadership") override val leadership: Int = 0,
-    @NonNull @ColumnInfo(name = "objective_control") override val objectiveControl: Int = 0,
-    @NonNull @ColumnInfo(name = "unit_composition") override val unitComposition: String = "0 Unspecified Units",
-    @NonNull @ColumnInfo(name = "unit_equipment") override val unitEquipment: String = "The Unspecified Unit model is equipped with: NONE",
-    @NonNull @ColumnInfo(name = "keywords") override val keywords: String = "KEYWORDS: NONE",
-    @NonNull @ColumnInfo(name = "is_epic_hero") override val isEpicHero: Int = 0,
-    @NonNull @ColumnInfo(name = "category") override val category: Int = 4,
-    @ColumnInfo(name = "custom_wahapedia_uri_unit") override val customWahapediaUriUnit: String? = null
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
 ) : Unit()
 
-open class BaseUnit(
-    open val id: String,
-    open var name: String,
-    open var creator: String,
-    open var dateOfLastEdit: String,
-    open var contributors: List<String>,
-    open var color: Int,
-    open var offline: Boolean
-)
+@Entity(tableName = "aeldari", ignoredColumns = ["necessary_evil"])
+data class AeldariUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
 
-@Entity
-data class ChildUnit(
-    @PrimaryKey(autoGenerate = false)
-    override val id: String = "",
-    override var name: String = "",
-    override var creator: String = "",
-    override var dateOfLastEdit: String = "",
-    override var contributors: List<String> = emptyList(),
-    override var color: Int = 0,
-    override var offline: Boolean = false
-) : BaseUnit(id, name, creator, dateOfLastEdit, contributors, color, offline) {
-    constructor() : this("", "", "", "", emptyList(), 0, false)
-}
+@Entity(tableName = "astra-militarum", ignoredColumns = ["necessary_evil"])
+data class AstraMilitarumUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "black-templars", ignoredColumns = ["necessary_evil"])
+data class BlackTemplarsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "blood-angels", ignoredColumns = ["necessary_evil"])
+data class BloodAngelsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "chaos-daemons", ignoredColumns = ["necessary_evil"])
+data class ChaosDaemonsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "chaos-knights", ignoredColumns = ["necessary_evil"])
+data class ChaosKnightsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "chaos-space-marines", ignoredColumns = ["necessary_evil"])
+data class ChaosSpaceMarinesUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "dark-angels", ignoredColumns = ["necessary_evil"])
+data class DarkAngelsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "death-guard", ignoredColumns = ["necessary_evil"])
+data class DeathGuardUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "deathwatch", ignoredColumns = ["necessary_evil"])
+data class DeathwatchUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "drukhari", ignoredColumns = ["necessary_evil"])
+data class DrukhariUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "genestealer-cults", ignoredColumns = ["necessary_evil"])
+data class GenestealerCultsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "grey-knights", ignoredColumns = ["necessary_evil"])
+data class GreyKnightsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "imperial-agents", ignoredColumns = ["necessary_evil"])
+data class ImperialAgentsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "imperial-knights", ignoredColumns = ["necessary_evil"])
+data class ImperialKnightsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "leagues-of-votann", ignoredColumns = ["necessary_evil"])
+data class LeaguesOfVotannUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "necrons", ignoredColumns = ["necessary_evil"])
+data class NecronsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "orks", ignoredColumns = ["necessary_evil"])
+data class OrksUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "space-marines", ignoredColumns = ["necessary_evil"])
+data class SpaceMarinesUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "space-wolves", ignoredColumns = ["necessary_evil"])
+data class SpaceWolvesUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "tau", ignoredColumns = ["necessary_evil"])
+data class TauUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "thousand-sons", ignoredColumns = ["necessary_evil"])
+data class ThousandSonsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "tyranids", ignoredColumns = ["necessary_evil"])
+data class TyranidsUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()
+
+@Entity(tableName = "world-eaters", ignoredColumns = ["necessary_evil"])
+data class WorldEatersUnit(
+    @PrimaryKey override val id: Int = 0,
+    @ColumnInfo(name = "name") override val name: String = "unspecified",
+    @ColumnInfo(name = "m") override val m: String = "NaN",
+    @ColumnInfo(name = "t") override val t: String = "NaN",
+    @ColumnInfo(name = "sv") override val sv: String = "NaN",
+    @ColumnInfo(name = "w") override val w: String = "NaN",
+    @ColumnInfo(name = "ld") override val ld: String = "NaN",
+    @ColumnInfo(name = "oc") override val oc: String = "NaN",
+    @ColumnInfo(name = "invulnerable_save") override val invulnerableSave: String? = null,
+    @ColumnInfo(name = "points_cost") override val pointsCost: Int = 0,
+    @ColumnInfo(name = "composition") override val composition: String = "unspecified",
+    @ColumnInfo(name = "keywords") override val keywords: String = "unspecified",
+    @ColumnInfo(name = "description") override val description: String = "unspecified"
+) : Unit()

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = arrayOf(Faction::class),
+    entities = [Faction::class],
     version = 1,
     exportSchema = false
 )

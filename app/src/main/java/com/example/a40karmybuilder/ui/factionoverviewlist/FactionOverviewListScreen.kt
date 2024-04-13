@@ -41,6 +41,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -49,6 +53,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.TextViewCompat.setTextAppearance
+import kotlinx.coroutines.flow.first
 
 object FactionOverviewListDestination : NavigationDestination {
     override val route = "faction_overview_list"
@@ -63,8 +68,18 @@ fun FactionOverviewListScreen(
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val allFactions by viewModel.getAllFactions().collectAsState(emptyList())
-    //val UiState by viewModel.UiState.collectAsState()
+    /*
+    * Stary sposób:
+    * val allFactions by viewModel.getAllFactions().collectAsState(emptyList())
+    */
+
+    /* Nowy sposób - rzekomo wydajniejszy */
+    var allFactions by remember { mutableStateOf(emptyList<Faction>()) }
+
+    LaunchedEffect(viewModel) {
+        allFactions = viewModel.getAllFactions().first()
+    }
+    /* Nowy sposób - rzekomo wydajniejszy */
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -89,6 +104,7 @@ fun FactionOverviewListScreen(
         }
     }
 }
+
 
 @SuppressLint("DiscouragedApi")
 @Composable

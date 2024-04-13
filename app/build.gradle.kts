@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") version "1.8.21-1.0.11"
+    id("kotlin-kapt")
 }
 
 android {
@@ -68,7 +69,9 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
     implementation(libs.androidx.appcompat)
+    // Was 'ksp' instead of 'annotationProcessor/kapt'
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 
     // Testing
