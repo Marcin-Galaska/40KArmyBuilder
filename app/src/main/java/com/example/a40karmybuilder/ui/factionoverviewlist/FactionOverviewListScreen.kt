@@ -105,7 +105,6 @@ fun FactionOverviewListScreen(
     }
 }
 
-
 @SuppressLint("DiscouragedApi")
 @Composable
 fun FactionCard(
@@ -177,7 +176,6 @@ fun FactionCard(
         }
     }
 }
-
 
 @Composable
 fun FactionIcon(

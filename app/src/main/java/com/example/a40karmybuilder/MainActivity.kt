@@ -26,11 +26,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun ScreenPreview() {
-    _40KArmyBuilderTheme {
-        a40KArmyBuilderApp()
-    }
-}

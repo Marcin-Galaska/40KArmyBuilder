@@ -6,10 +6,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsDestination
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsScreen
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListDestination
@@ -17,6 +15,9 @@ import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListScr
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.home.HomeDestination
 import com.example.a40karmybuilder.ui.home.HomeScreen
+import com.example.a40karmybuilder.ui.unitselection.UnitSelectionDestination
+import com.example.a40karmybuilder.ui.unitselection.UnitSelectionScreen
+import com.example.a40karmybuilder.ui.unitselection.UnitViewModel
 
 @Composable
 fun a40KArmyBuilderNavHost(
@@ -25,7 +26,7 @@ fun a40KArmyBuilderNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = UnitSelectionDestination.route,
         modifier = modifier
     ) {
         // Home screen
@@ -57,6 +58,21 @@ fun a40KArmyBuilderNavHost(
                 FactionOverviewDetailsScreen(
                     faction = fac,
                     navigateBack = { navController.navigateUp() }
+                )
+            }
+        }
+
+        // Unit Selection screen
+        composable(
+            route = UnitSelectionDestination.route
+        ) {
+            val viewModel: UnitViewModel = viewModel(factory = UnitViewModel.factory)
+            val allUnits by viewModel.getAllUnits(UnitViewModel.selectedUnitsFactionName).collectAsState(null)
+
+            allUnits?.let { units ->
+                UnitSelectionScreen(
+                    units = units,
+                    //navigateBack = { navController.navigateUp() }
                 )
             }
         }

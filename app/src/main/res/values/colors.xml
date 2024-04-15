@@ -3,4 +3,88 @@
     <color name="games_workshop_green">#FF54CA93</color>
     <color name="warhammer_wiki_blue">#FF016499</color>
     <color name="wahapedia_red">#FFC81900</color>
+
+    <color name="unit_stats_white">#e7e9e1</color>
+    <color name="unit_card_black">#1C1C1C</color>
+
+    <color name="adepta_sororitas_primary">#561113</color>
+    <color name="adepta_sororitas_secondary">#570c0c</color>
+
+    <color name="adeptus_custodes_primary">#6a0e19</color>
+    <color name="adeptus_custodes_secondary">#6d5035</color>
+
+    <color name="adeptus_mechanicus_primary">#5d1615</color>
+    <color name="adeptus_mechanicus_secondary">#9f2628</color>
+
+    <color name="aeldari_primary">#0a353a</color>
+    <color name="aeldari_secondary">#347379</color>
+
+    <color name="astra_militarum_primary">#082f1f</color>
+    <color name="astra_militarum_secondary">#324935</color>
+
+    <color name="black_templars_primary">#344047</color>
+    <color name="black_templars_secondary">#1c4063</color>
+
+    <color name="blood_angels_primary">#631210</color>
+    <color name="blood_angels_secondary">#72191c</color>
+
+    <color name="chaos_daemons_primary">#313539</color>
+    <color name="chaos_daemons_secondary">#5d5d61</color>
+
+    <color name="chaos_knights_primary">#16352f</color>
+    <color name="chaos_knights_secondary">#49584c</color>
+
+    <color name="chaos_space_marines_primary">#5f1317</color>
+    <color name="chaos_space_marines_secondary">#394b57</color>
+
+    <color name="dark_angels_primary">#16291a</color>
+    <color name="dark_angels_secondary">#013a17</color>
+
+    <color name="death_guard_primary">#2c290c</color>
+    <color name="death_guard_secondary">#4d560e</color>
+
+    <color name="deathwatch_primary">#232425</color>
+    <color name="deathwatch_secondary">#3d3e41</color>
+
+    <color name="drukhari_primary">#153737</color>
+    <color name="drukhari_secondary">#0f454e</color>
+
+    <color name="genestealer_cults_primary">#49203a</color>
+    <color name="genestealer_cults_secondary">#5b1b36</color>
+
+    <color name="grey_knights_primary">#325b68</color>
+    <color name="grey_knights_secondary">#4a5e67</color>
+
+    <color name="imperial_agents_primary">#1a3445</color>
+    <color name="imperial_agents_secondary">#244b6a</color>
+
+    <color name="imperial_knights_primary">#122d42</color>
+    <color name="imperial_knights_secondary">#023e58</color>
+
+    <color name="leagues_of_votann_primary">#572d0a</color>
+    <color name="leagues_of_votann_secondary">#3c4b3f</color>
+
+    <color name="necrons_primary">#032b16</color>
+    <color name="necrons_secondary">#04532a</color>
+
+    <color name="orks_primary">#283109</color>
+    <color name="orks_secondary">#465b18</color>
+
+    <color name="space_marines_primary">#0c3455</color>
+    <color name="space_marines_secondary">#4b6262</color>
+
+    <color name="space_wolves_primary">#283743</color>
+    <color name="space_wolves_secondary">#435d63</color>
+
+    <color name="t_au_empire_primary">#175966</color>
+    <color name="t_au_empire_secondary">#2e5a6a</color>
+
+    <color name="thousand_sons_primary">#0b3645</color>
+    <color name="thousand_sons_secondary">#185862</color>
+
+    <color name="tyranids_primary">#623462</color>
+    <color name="tyranids_secondary">#632567</color>
+
+    <color name="world_eaters_primary">#4d161a</color>
+    <color name="world_eaters_secondary">#611013</color>
 </resources>

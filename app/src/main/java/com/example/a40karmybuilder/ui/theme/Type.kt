@@ -17,6 +17,14 @@ val SpaceMarine = FontFamily(
     Font(R.font.space_marine_regular)
 )
 
+val NotoSerif = FontFamily(
+    Font(R.font.noto_serif_light, FontWeight.Light),
+    Font(R.font.noto_serif_regular, FontWeight.Normal),
+    Font(R.font.noto_serif_italic, FontWeight.Normal, FontStyle.Italic),
+    Font(R.font.noto_serif_medium, FontWeight.Medium),
+    Font(R.font.noto_serif_bold, FontWeight.Bold)
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -28,7 +36,7 @@ val Typography = Typography(
     bodySmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 12.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
@@ -46,6 +54,16 @@ val Typography = Typography(
         fontFamily = Anton,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
     ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,

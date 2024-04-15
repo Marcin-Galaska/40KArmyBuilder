@@ -31,6 +31,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -163,7 +164,7 @@ fun FactionOverviewDetailsScreen(
 }
 
 @Composable
-fun UriButtonSet(
+private fun UriButtonSet(
     faction: Faction,
     modifier: Modifier = Modifier
 ){
@@ -194,7 +195,7 @@ fun UriButtonSet(
 }
 
 @Composable
-fun UriButton(
+private fun UriButton(
     url: String,
     imageResourceId: Int,
     text: String,
@@ -231,12 +232,15 @@ fun UriButton(
                     .align(Alignment.CenterStart),
                 contentScale = ContentScale.Inside,
                 painter = painterResource(imageResourceId),
-                contentDescription = "Uri Button"
+                contentDescription = contentDescription
             )
             Text(
+                text = text,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Bold
+                ),
                 modifier = modifier
-                    .align(Alignment.Center),
-                text = text
+                    .align(Alignment.Center)
             )
         }
     }
