@@ -35,7 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.R
+import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.data.Faction
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
@@ -50,6 +52,7 @@ object FactionOverviewDetailsDestination : NavigationDestination {
 @SuppressLint("DiscouragedApi")
 @Composable
 fun FactionOverviewDetailsScreen(
+    navController: NavHostController,
     faction: Faction,
     navigateBack: () -> Unit,
     viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
@@ -78,6 +81,11 @@ fun FactionOverviewDetailsScreen(
                 canNavigateBack = true,
                 navigateUp = navigateBack,
                 scrollBehavior = scrollBehavior
+            )
+        },
+        bottomBar = {
+            a40KArmyBuilderBottomAppBar(
+                navController = navController
             )
         }
     ) { innerPadding ->

@@ -9,18 +9,18 @@ import com.example.a40karmybuilder.data.Unit
 import com.example.a40karmybuilder.data.UnitDao
 import kotlinx.coroutines.flow.Flow
 
-class UnitViewModel(
+class UnitSelectionViewModel(
     private val unitDao: UnitDao
 ): ViewModel() {
     fun getAllUnits(tableName: String): Flow<List<Unit>> = unitDao.getAllItems(tableName)
     fun getUnit(tableName: String, id: Int): Flow<Unit> = unitDao.getItem(tableName, id)
 
     companion object {
-        var selectedUnitsFactionName: String = "leagues_of_votann"
+        var selectedUnitsFactionName: String = "adeptus_mechanicus"
         val factory : ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)
-                UnitViewModel(application.unitDatabase.unitDao())
+                UnitSelectionViewModel(application.unitDatabase.unitDao())
             }
         }
     }

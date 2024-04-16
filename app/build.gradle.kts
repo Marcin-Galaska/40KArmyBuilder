@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") version "1.8.21-1.0.11"
     id("kotlin-kapt")
+    kotlin("plugin.serialization") version "1.8.21"
 }
 
 android {
@@ -73,6 +74,7 @@ dependencies {
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
 
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
+    implementation(libs.kotlinx.serialization.json)
 
     // Testing
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

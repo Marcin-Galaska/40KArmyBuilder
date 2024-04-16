@@ -22,6 +22,6 @@ interface ArmyDao {
     @Query("SELECT * from armies WHERE id = :id")
     fun getItem(id: Int): Flow<Army>
 
-    @Query("SELECT * from armies ORDER BY faction ASC")
+    @Query("SELECT * from armies ORDER BY id ASC")
     fun getAllItems(): Flow<List<Army>>
 }

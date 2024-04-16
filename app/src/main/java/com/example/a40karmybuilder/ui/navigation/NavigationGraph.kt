@@ -8,6 +8,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.a40karmybuilder.data.Army
+import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListDestination
+import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListScreen
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsDestination
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsScreen
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListDestination
@@ -15,9 +18,13 @@ import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListScr
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.home.HomeDestination
 import com.example.a40karmybuilder.ui.home.HomeScreen
+import com.example.a40karmybuilder.ui.newarmy.NewArmyDetailsDestination
+import com.example.a40karmybuilder.ui.newarmy.NewArmyDetailsScreen
+import com.example.a40karmybuilder.ui.newarmy.NewArmySelectionDestination
+import com.example.a40karmybuilder.ui.newarmy.NewArmySelectionScreen
 import com.example.a40karmybuilder.ui.unitselection.UnitSelectionDestination
 import com.example.a40karmybuilder.ui.unitselection.UnitSelectionScreen
-import com.example.a40karmybuilder.ui.unitselection.UnitViewModel
+import com.example.a40karmybuilder.ui.unitselection.UnitSelectionViewModel
 
 @Composable
 fun a40KArmyBuilderNavHost(
@@ -26,10 +33,9 @@ fun a40KArmyBuilderNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = UnitSelectionDestination.route,
+        startDestination = HomeDestination.route,
         modifier = modifier
     ) {
-        // Home screen
         composable(
             route = HomeDestination.route
         ) {
@@ -38,16 +44,15 @@ fun a40KArmyBuilderNavHost(
             )
         }
 
-        // Faction Overview List screen
         composable(
             route = FactionOverviewListDestination.route
         ) {
             FactionOverviewListScreen(
+                navController = navController,
                 navigateToFactionDetails = { navController.navigate(FactionOverviewDetailsDestination.route) }
             )
         }
 
-        // Faction Overview Details screen
         composable(
             route = FactionOverviewDetailsDestination.route
         ) {
@@ -56,23 +61,61 @@ fun a40KArmyBuilderNavHost(
 
             faction?.let { fac ->
                 FactionOverviewDetailsScreen(
+                    navController = navController,
                     faction = fac,
                     navigateBack = { navController.navigateUp() }
                 )
             }
         }
 
-        // Unit Selection screen
+        composable(
+            route = CreatedArmiesListDestination.route
+        ) {
+            CreatedArmiesListScreen(
+                navController = navController
+            )
+        }
+
+
+        composable(
+            route = NewArmySelectionDestination.route
+        ) {
+            NewArmySelectionScreen(
+                navController = navController,
+                navigateToNewArmyDetails = { /* TODO */ },
+                navigateBack = { navController.navigateUp() }
+            )
+        }
+
+        composable(
+            route = NewArmyDetailsDestination.route
+        ) {
+            NewArmyDetailsScreen(
+                navController = navController,
+                navigateToCreatedArmyComposition = { /* TODO */ },
+                navigateBack = { navController.navigateUp() },
+                army = Army(
+                    factionDrawablePrefix = "adeptusmechanicus",
+                    factionName = "Adeptus Mechanicus",
+                    armyName = "New Army",
+                    maxPoints = 2000,
+                    currentPoints = 0,
+                    units = emptyList()
+                )
+            )
+        }
+
         composable(
             route = UnitSelectionDestination.route
         ) {
-            val viewModel: UnitViewModel = viewModel(factory = UnitViewModel.factory)
-            val allUnits by viewModel.getAllUnits(UnitViewModel.selectedUnitsFactionName).collectAsState(null)
+            val viewModel: UnitSelectionViewModel = viewModel(factory = UnitSelectionViewModel.factory)
+            val allUnits by viewModel.getAllUnits(UnitSelectionViewModel.selectedUnitsFactionName).collectAsState(null)
 
             allUnits?.let { units ->
                 UnitSelectionScreen(
+                    navController = navController,
                     units = units,
-                    //navigateBack = { navController.navigateUp() }
+                    navigateBack = { navController.navigateUp() }
                 )
             }
         }

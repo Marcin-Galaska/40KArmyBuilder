@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Army::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class ArmyDatabase : RoomDatabase() {
@@ -18,7 +18,6 @@ abstract class ArmyDatabase : RoomDatabase() {
         private var Instance: ArmyDatabase? = null
 
         fun getDatabase(context: Context): ArmyDatabase {
-            // if the Instance is not null, return it, otherwise create a new database instance.
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(
                     context,

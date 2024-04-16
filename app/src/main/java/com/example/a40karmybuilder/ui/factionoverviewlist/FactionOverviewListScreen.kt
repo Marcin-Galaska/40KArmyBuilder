@@ -36,10 +36,13 @@ import com.example.a40karmybuilder.data.Faction
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 import android.content.res.Resources
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -50,9 +53,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.TextViewCompat.setTextAppearance
+import androidx.navigation.NavHostController
+import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import kotlinx.coroutines.flow.first
 
 object FactionOverviewListDestination : NavigationDestination {
@@ -63,23 +69,17 @@ object FactionOverviewListDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FactionOverviewListScreen(
+    navController: NavHostController,
     navigateToFactionDetails: () -> Unit,
     viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    /*
-    * Stary sposób:
-    * val allFactions by viewModel.getAllFactions().collectAsState(emptyList())
-    */
-
-    /* Nowy sposób - rzekomo wydajniejszy */
     var allFactions by remember { mutableStateOf(emptyList<Faction>()) }
 
     LaunchedEffect(viewModel) {
         allFactions = viewModel.getAllFactions().first()
     }
-    /* Nowy sposób - rzekomo wydajniejszy */
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -89,17 +89,34 @@ fun FactionOverviewListScreen(
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior
             )
+        },
+        bottomBar = {
+            a40KArmyBuilderBottomAppBar(
+                navController = navController
+            )
         }
     ) { innerPadding ->
-        LazyColumn(
-            contentPadding = innerPadding
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
         ) {
-            items(allFactions) {
-                FactionCard(
-                    faction = it,
-                    onCardClick = navigateToFactionDetails,
-                    modifier = Modifier.padding(dimensionResource(R.dimen.padding_tiny))
-                )
+            Image(
+                contentScale = ContentScale.FillWidth,
+                painter = painterResource(R.drawable.background_factionoverviewlistscreen),
+                contentDescription = "Background",
+                modifier = modifier
+                    .fillMaxSize(),
+            )
+            LazyColumn(
+                contentPadding = innerPadding
+            ) {
+                items(allFactions) {
+                    FactionCard(
+                        faction = it,
+                        onCardClick = navigateToFactionDetails,
+                        modifier = Modifier.padding(dimensionResource(R.dimen.padding_tiny))
+                    )
+                }
             }
         }
     }
@@ -110,7 +127,6 @@ fun FactionOverviewListScreen(
 fun FactionCard(
     faction: Faction,
     onCardClick: () -> Unit,
-    viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -128,6 +144,10 @@ fun FactionCard(
 
     Card(
         shape = MaterialTheme.shapes.large,
+        border = BorderStroke(width = 1.dp, color = colorResource(R.color.unit_card_black)),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(R.color.unit_card_black)
+        ),
         modifier = modifier
             .height(dimensionResource(R.dimen.faction_overview_list_card_height))
             .clickable(

@@ -37,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
@@ -104,7 +105,10 @@ fun HomeScreen(
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(stringResource(R.string.home_screen_button))
+                    Text(
+                        text = stringResource(R.string.home_screen_button),
+                        style = MaterialTheme.typography.labelMedium
+                    )
                 }
                 Text(
                     text = "Unit data based on wahapedia.ru. Last update: 2024.04.12.",

@@ -4,6 +4,6 @@ Ekrany (Destinations):
     3. FactionOverviewDetails - Opis i skrót danej armii
     4. CreatedArmiesList - Lista stworzonych armii
     5. NewArmySelection - Ekran wyboru armii do stworzenia nowej listy
-    5. CreatedArmyComposition - Główny ekran edycji armii
-    6. UnitSelection - Ekran dodawania
-    7. UnitDetails - Character Sheet jednostki
+    6. NewArmyDetails - Ekran szczegółów armii
+    7. CreatedArmyComposition - Główny ekran edycji armii
+    8. UnitSelection - Ekran dodawania

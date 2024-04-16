@@ -66,7 +66,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.R
+import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderFloatingPointsButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
@@ -81,14 +83,16 @@ object UnitSelectionDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UnitSelectionScreen(
+    navController: NavHostController,
     units: List<com.example.a40karmybuilder.data.Unit>,
-    viewModel: UnitViewModel = viewModel(factory = UnitViewModel.factory),
+    navigateBack: () -> Unit,
+    viewModel: UnitSelectionViewModel = viewModel(factory = UnitSelectionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val context = LocalContext.current
 
-    val factionName = UnitViewModel.selectedUnitsFactionName
+    val factionName = UnitSelectionViewModel.selectedUnitsFactionName
     val backgroundResourceId = context.resources.getIdentifier(
         factionName.replace("_", "") + "_background",
         "drawable",
@@ -112,6 +116,7 @@ fun UnitSelectionScreen(
             a40KArmyBuilderTopAppBar(
                 title = stringResource(UnitSelectionDestination.titleRes),
                 canNavigateBack = true,
+                navigateUp = navigateBack,
                 scrollBehavior = scrollBehavior
             )
         },
@@ -121,6 +126,11 @@ fun UnitSelectionScreen(
                 maxPoints = 2000,
                 currentPoints = 0,
                 color = colorResource(secondaryColorResourceId)
+            )
+        },
+        bottomBar = {
+            a40KArmyBuilderBottomAppBar(
+                navController = navController
             )
         }
     ) { innerPadding ->
@@ -165,7 +175,7 @@ fun UnitSelectionCard(
         mutableStateOf(false)
     }
 
-    val factionName = UnitViewModel.selectedUnitsFactionName
+    val factionName = UnitSelectionViewModel.selectedUnitsFactionName
     val cardResourceId = context.resources.getIdentifier(
         factionName.replace("_", "") + "_card",
         "drawable",
@@ -506,7 +516,7 @@ private fun ShowUnitDetailsButton(
 }
 
 @Composable
-fun UnitDetails(
+private fun UnitDetails(
     description: String,
     keywords: String,
     wahapediaUrl: String,
@@ -621,13 +631,13 @@ private fun WahapediaUriButton(
 }
 
 @Composable
-fun UnitCountControls(
+private fun UnitCountControls(
     onAddClick: () -> Unit,
     onSubtractClick: () -> Unit,
     color: Color,
     unitCount: Int = 0,
-    modifier: Modifier = Modifier,
-    scale: Float = 1f // Added scale parameter with default value
+    scale: Float = 1f,
+    modifier: Modifier = Modifier
 ) {
     Card(
         shape = MaterialTheme.shapes.medium,
@@ -640,16 +650,16 @@ fun UnitCountControls(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
-                .padding(vertical = dimensionResource(R.dimen.padding_medium) * scale) // Scale padding
+                .padding(vertical = dimensionResource(R.dimen.padding_medium) * scale)
         ) {
             IconButton(
                 onClick = onAddClick,
-                modifier = Modifier.scale(2f) // Scale IconButton
+                modifier = Modifier.scale(2f)
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowUp,
                     contentDescription = stringResource(R.string.unit_add_button),
-                    tint = Color.White //MaterialTheme.colorScheme.secondary
+                    tint = Color.White
                 )
             }
             Text(
@@ -658,91 +668,18 @@ fun UnitCountControls(
                     fontWeight = FontWeight.Bold
                 ),
                 color = Color.White,
-                modifier = Modifier.scale(2f) // Scale Text
+                modifier = Modifier.scale(2f)
             )
             IconButton(
                 onClick = onSubtractClick,
-                modifier = Modifier.scale(2f) // Scale IconButton
+                modifier = Modifier.scale(2f)
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowDown,
                     contentDescription = stringResource(R.string.unit_subtract_button),
-                    tint = Color.White //MaterialTheme.colorScheme.secondary
+                    tint = Color.White
                 )
             }
         }
     }
 }
-
-//
-//@Composable
-//fun UnitCountControlButton(
-//    onClick: () -> Unit,
-//    primaryColor: Color,
-//    secondaryColor: Color,
-//    icon: ImageVector,
-//    modifier: Modifier = Modifier,
-//) {
-//    Button(
-//        onClick = onClick,
-//        shape = RoundedCornerShape(0.dp),
-//        border = BorderStroke(width = 2.dp, color = secondaryColor),
-//        colors = ButtonDefaults.buttonColors(
-//            containerColor = primaryColor
-//        ),
-//        modifier = modifier
-//            .size(width = 80.dp, height = 80.dp)
-//            //.padding(horizontal = dimensionResource(R.dimen.padding_tiny))
-//    ) {
-//        Icon(
-//            imageVector = icon,
-//            contentDescription = stringResource(R.string.show_unit_details_button),
-//            tint = Color.White
-//            //modifier = Modifier.size(20.dp) // Set the size of the icon
-//        )
-//        Surface {
-//            Text(
-//                text = "0",
-//                style = MaterialTheme.typography.bodySmall,
-//                color = Color.White,
-//                modifier = modifier
-//                    .fillMaxSize()
-//                    .align(Alignment.CenterVertically)
-//            )
-//        }
-//    }
-//}
-//
-//@Composable
-//fun UnitCounter(
-//    color: Color,
-//    unitCount: Int,
-//    modifier: Modifier = Modifier,
-//) {
-//    Button(
-//        onClick = { },
-//        shape = RoundedCornerShape(0.dp),
-//        border = BorderStroke(width = 2.dp, color = color),
-//        colors = ButtonDefaults.buttonColors(
-//            containerColor = Color.White
-//        ),
-//        modifier = modifier
-//            .size(50.dp)
-//            //.padding(horizontal = dimensionResource(R.dimen.padding_tiny))
-//    ) {
-//        Box(
-//            modifier = modifier
-//                .fillMaxSize()
-//                //.size(40.dp, 30.dp) // Set the size of the Box containing the text
-//        ) {
-//            Text(
-//                text = unitCount.toString(),
-//                style = MaterialTheme.typography.bodySmall,
-//                color = color,
-//                modifier = modifier
-//                    .fillMaxSize()
-//                    .align(Alignment.Center)
-//            )
-//        }
-//    }
-//}
