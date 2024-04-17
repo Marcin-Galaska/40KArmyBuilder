@@ -8,7 +8,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.a40karmybuilder.data.Army
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListDestination
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListScreen
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsDestination
@@ -18,10 +17,8 @@ import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListScr
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.home.HomeDestination
 import com.example.a40karmybuilder.ui.home.HomeScreen
-import com.example.a40karmybuilder.ui.newarmy.NewArmyDetailsDestination
-import com.example.a40karmybuilder.ui.newarmy.NewArmyDetailsScreen
-import com.example.a40karmybuilder.ui.newarmy.NewArmySelectionDestination
-import com.example.a40karmybuilder.ui.newarmy.NewArmySelectionScreen
+import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorDestination
+import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorScreen
 import com.example.a40karmybuilder.ui.unitselection.UnitSelectionDestination
 import com.example.a40karmybuilder.ui.unitselection.UnitSelectionScreen
 import com.example.a40karmybuilder.ui.unitselection.UnitSelectionViewModel
@@ -69,39 +66,19 @@ fun a40KArmyBuilderNavHost(
         }
 
         composable(
-            route = CreatedArmiesListDestination.route
+            route = NewArmyCreatorDestination.route
         ) {
-            CreatedArmiesListScreen(
-                navController = navController
-            )
-        }
-
-
-        composable(
-            route = NewArmySelectionDestination.route
-        ) {
-            NewArmySelectionScreen(
+            NewArmyCreatorScreen(
                 navController = navController,
-                navigateToNewArmyDetails = { /* TODO */ },
                 navigateBack = { navController.navigateUp() }
             )
         }
 
         composable(
-            route = NewArmyDetailsDestination.route
+            route = CreatedArmiesListDestination.route
         ) {
-            NewArmyDetailsScreen(
-                navController = navController,
-                navigateToCreatedArmyComposition = { /* TODO */ },
-                navigateBack = { navController.navigateUp() },
-                army = Army(
-                    factionDrawablePrefix = "adeptusmechanicus",
-                    factionName = "Adeptus Mechanicus",
-                    armyName = "New Army",
-                    maxPoints = 2000,
-                    currentPoints = 0,
-                    units = emptyList()
-                )
+            CreatedArmiesListScreen(
+                navController = navController
             )
         }
 

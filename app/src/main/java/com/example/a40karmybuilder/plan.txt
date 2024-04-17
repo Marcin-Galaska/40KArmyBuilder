@@ -3,7 +3,6 @@ Ekrany (Destinations):
     2. FactionOverviewList - Lista wszystkich armii
     3. FactionOverviewDetails - Opis i skrót danej armii
     4. CreatedArmiesList - Lista stworzonych armii
-    5. NewArmySelection - Ekran wyboru armii do stworzenia nowej listy
-    6. NewArmyDetails - Ekran szczegółów armii
+    6. NewArmyCreator - Ekran wyboru frakcji, nazwy i max. punktów dla armii
     7. CreatedArmyComposition - Główny ekran edycji armii
     8. UnitSelection - Ekran dodawania

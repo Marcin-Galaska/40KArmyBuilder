@@ -19,7 +19,7 @@ class UnitConverters {
 @Entity(tableName = "armies")
 @TypeConverters(UnitConverters::class)
 data class Army(
-    @PrimaryKey val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "faction_drawable_prefix") val factionDrawablePrefix: String,
     @ColumnInfo(name = "faction_name") val factionName: String,
     @ColumnInfo(name = "army_name") val armyName: String,

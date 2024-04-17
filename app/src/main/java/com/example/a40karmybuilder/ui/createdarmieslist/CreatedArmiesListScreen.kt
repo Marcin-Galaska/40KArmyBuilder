@@ -1,6 +1,7 @@
 package com.example.a40karmybuilder.ui.createdarmieslist
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,18 +36,26 @@ import androidx.compose.ui.unit.sp
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.data.Army
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
+import com.example.a40karmybuilder.a40KArmyBuilderNewArmyListFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
-import com.example.a40karmybuilder.ui.newarmy.NewArmyDetailsDestination
+import com.example.a40karmybuilder.ui.unitselection.UnitSelectionViewModel
 
 object CreatedArmiesListDestination : NavigationDestination {
     override val route = "created_armies_list"
@@ -64,7 +73,8 @@ fun CreatedArmiesListScreen(
     val uiState by viewModel.armiesUiState.collectAsState()
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxSize(),
         topBar = {
             a40KArmyBuilderTopAppBar(
                 title = stringResource(CreatedArmiesListDestination.titleRes),
@@ -75,14 +85,21 @@ fun CreatedArmiesListScreen(
             a40KArmyBuilderBottomAppBar(
                 navController = navController
             )
+        },
+        floatingActionButton = {
+            a40KArmyBuilderNewArmyListFloatingButton(
+                navController = navController
+            )
         }
     ) { innerPadding ->
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
         ) {
             Image(
-                modifier = modifier.fillMaxHeight(),
+                modifier = modifier
+                    .fillMaxHeight(),
                 contentScale = ContentScale.FillHeight,
                 painter = painterResource(R.drawable.background_createdarmieslistscreen),
                 contentDescription = "Background"
@@ -91,13 +108,13 @@ fun CreatedArmiesListScreen(
                 armyList = uiState.armyList,
                 onCardClick = { /* TODO */ },
                 onSettingsIconClick = { /* TODO */ },
-                modifier = modifier
-                    .padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
             )
         }
-
     }
 }
+
 
 @Composable
 private fun CreatedArmiesListBody(
@@ -108,11 +125,15 @@ private fun CreatedArmiesListBody(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = if(armyList.isEmpty()) {
+            Arrangement.Center
+        } else {
+            Arrangement.Top
+        },
         modifier = modifier
             .fillMaxSize()
     ) {
-        if (armyList.isEmpty()) {
+        if(armyList.isEmpty()) {
             Text(
                 text = stringResource(R.string.created_armies_list_no_armies_message),
                 textAlign = TextAlign.Center,
@@ -124,13 +145,15 @@ private fun CreatedArmiesListBody(
                         blurRadius = 8f
                     )
                 ),
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(R.dimen.padding_small))
             )
         } else {
             LazyColumn(
+                verticalArrangement = Arrangement.Top,
                 modifier = modifier
+                    .fillMaxHeight()
             ) {
                 items(items = armyList, key = { it.id }) { army ->
                     ArmyCard(
@@ -147,19 +170,31 @@ private fun CreatedArmiesListBody(
 }
 
 
+
 @SuppressLint("DiscouragedApi")
 @Composable
 fun ArmyCard(
     army: Army,
     onCardClick: () -> Unit,
     onSettingsIconClick: () -> Unit,
+    maxArmyNameLength: Int = 30,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val factionName = army.factionName
+    val context = LocalContext.current
+
+    val armyCardResourceId = context.resources.getIdentifier(
+        army.factionDrawablePrefix + "_armycard",
+        "drawable",
+        context.packageName
+    )
 
     Card(
         shape = MaterialTheme.shapes.large,
+        border = BorderStroke(width = 1.dp, color = colorResource(R.color.unit_card_black)),
+        colors = CardDefaults.cardColors(
+          containerColor = colorResource(R.color.unit_card_black)
+        ),
         modifier = modifier
             .fillMaxWidth()
             .height(140.dp)
@@ -169,7 +204,7 @@ fun ArmyCard(
     ) {
         Box{
             Image(
-                painter = painterResource(R.drawable.background_factionoverviewlistscreen),
+                painter = painterResource(armyCardResourceId),
                 contentDescription = "Army Card Background Image",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
@@ -188,16 +223,52 @@ fun ArmyCard(
                     modifier = modifier
                         .padding(dimensionResource(R.dimen.padding_tiny))
                 ) {
+                    val armyName = if (army.armyName.length > maxArmyNameLength) {
+                        army.armyName.take(maxArmyNameLength) + "..."
+                    } else {
+                        army.armyName
+                    }
+
                     Text(
-                        text = army.armyName,
+                        text = armyName.uppercase(),
+                        color = Color.White,
                         style = MaterialTheme.typography.displayMedium.copy(
-                            fontSize = 18.sp
+                            fontSize = 18.sp,
+                            shadow = Shadow(
+                                color = Color.Black,
+                                offset = Offset(4f, 4f),
+                                blurRadius = 8f
+                            )
                         )
                     )
                     Text(
                         text = factionName,
+                        color = Color.White,
                         style = MaterialTheme.typography.labelMedium.copy(
-                            fontSize = 14.sp
+                            fontSize = 14.sp,
+                            shadow = Shadow(
+                                color = Color.Black,
+                                offset = Offset(4f, 4f),
+                                blurRadius = 8f
+                            )
+                        )
+                    )
+                    Text(
+                        text = buildAnnotatedString {
+                            append("${army.maxPoints}")
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Light)) {
+                                append(" Points")
+                            }
+                        },
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontSize = 14.sp,
+                            shadow = Shadow(
+                                color = Color.Black,
+                                offset = Offset(4f, 4f),
+                                blurRadius = 8f
+                            )
                         )
                     )
                 }

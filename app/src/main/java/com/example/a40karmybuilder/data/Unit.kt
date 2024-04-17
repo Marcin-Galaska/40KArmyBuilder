@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "unspecified")
 open class Unit(
     @PrimaryKey @ColumnInfo(name = "necessary_evil") open var necessaryEvil: Int,   //Required @PrimaryKey field

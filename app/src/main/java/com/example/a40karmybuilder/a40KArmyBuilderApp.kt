@@ -3,6 +3,7 @@
 package com.example.a40karmybuilder
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.Icons.Filled
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
@@ -48,9 +51,8 @@ import com.example.a40karmybuilder.R.string
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListDestination
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListDestination
 import com.example.a40karmybuilder.ui.navigation.a40KArmyBuilderNavHost
-import com.example.a40karmybuilder.ui.unitselection.UnitSelectionDestination
+import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorDestination
 
-// Top level composable that represents screens for the application.
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun a40KArmyBuilderApp(navController: NavHostController = rememberNavController()) {
@@ -58,7 +60,47 @@ fun a40KArmyBuilderApp(navController: NavHostController = rememberNavController(
 }
 
 @Composable
-fun a40KArmyBuilderFloatingPointsButton(
+fun a40KArmyBuilderNewArmyListFloatingButton(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    FloatingActionButton(
+        onClick = { navController.navigate(NewArmyCreatorDestination.route) },
+        shape = MaterialTheme.shapes.medium,
+        containerColor = Color.Transparent,
+        modifier = modifier
+            .size(width = 95.dp, height = 95.dp)
+            .padding(dimensionResource(R.dimen.padding_medium))
+    ) {
+        Card(
+            shape = MaterialTheme.shapes.medium,
+            colors = CardDefaults.cardColors(
+                containerColor = Color.Transparent
+            ),
+            border = BorderStroke(width = 1.dp, color = Color.White),
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier
+                    .fillMaxSize()
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = stringResource(R.string.created_armies_list_floating_button_icon),
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = modifier
+                        .scale(1.5f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun a40KArmyBuilderPointsFloatingButton(
     onClick: () -> Unit,
     maxPoints: Int = 2000,
     currentPoints: Int = 0,
@@ -117,7 +159,6 @@ fun a40KArmyBuilderFloatingPointsButton(
     }
 }
 
-// Scaffold's top bar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun a40KArmyBuilderTopAppBar(
@@ -152,7 +193,6 @@ fun a40KArmyBuilderTopAppBar(
     )
 }
 
-// Scaffold's bottom bar
 @Composable
 fun a40KArmyBuilderBottomAppBar(
     navController: NavHostController,
@@ -186,6 +226,7 @@ fun a40KArmyBuilderBottomAppBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomAppBarActionCard(
     onClick: () -> Unit,
@@ -201,7 +242,7 @@ fun BottomAppBarActionCard(
         ),
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
-            .width(110.dp)
+            .width(110.dp),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

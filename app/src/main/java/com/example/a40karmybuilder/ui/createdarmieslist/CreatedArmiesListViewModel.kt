@@ -30,8 +30,6 @@ class CreatedArmiesListViewModel(
         private const val TIMEOUT_MILLIS = 5_000L
         val factory : ViewModelProvider.Factory = viewModelFactory {
             initializer {
-//                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)
-//                CreatedArmiesListViewModel(application.armyDatabase.armyDao())
                 CreatedArmiesListViewModel(a40karmybuilderApplication().container.armiesRepository)
             }
         }

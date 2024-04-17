@@ -69,7 +69,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
-import com.example.a40karmybuilder.a40KArmyBuilderFloatingPointsButton
+import com.example.a40karmybuilder.a40KArmyBuilderPointsFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
@@ -121,7 +121,7 @@ fun UnitSelectionScreen(
             )
         },
         floatingActionButton = {
-            a40KArmyBuilderFloatingPointsButton(
+            a40KArmyBuilderPointsFloatingButton(
                 onClick = { /* TODO */ },
                 maxPoints = 2000,
                 currentPoints = 0,
@@ -527,7 +527,7 @@ private fun UnitDetails(
         modifier = modifier
     ) {
         Text(
-            buildAnnotatedString {
+            text = buildAnnotatedString {
                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                     append("KEYWORDS: ")
                 }

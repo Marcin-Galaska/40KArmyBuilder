@@ -16,18 +16,17 @@
 
     <string name="created_armies_list_top_bar_text">ARMY LISTS</string>
     <string name="created_armies_list_no_armies_message">You are yet to create an army list. Tap the button below to start creating your first list.</string>
+    <string name="created_armies_list_floating_button_icon">Created Armies List New Army List Button Icon</string>
 
-    <string name="new_army_selection_top_bar_text">SELECT A FACTION</string>
-
-    <string name="new_army_details_top_bar_text">ENTER ARMY DETAILS</string>
-    <string name="new_army_details_label_army_name">ARMY NAME</string>
-    <string name="new_army_details_label_max_points">MAX POINTS</string>
-    <string name="new_army_details_create_army">Create Army List</string>
-    <string name="new_army_details_recommended_max_points">Recommended max. points: 500, 1000, 2000.</string>
+    <string name="new_army_creator_top_bar_text">CREATE NEW ARMY LIST</string>
+    <string name="new_army_creator_label_army_name">ARMY NAME</string>
+    <string name="new_army_creator_label_max_points">MAX POINTS</string>
+    <string name="new_army_creator_create_army">Create Army List</string>
+    <string name="new_army_creator_recommended_max_points">Recommended max. points: 500, 1000, 2000.</string>
 
     <string name="unit_selection_top_bar_text">UNIT SELECTION</string>
     <string name="unit_add_button">Unit Add Button</string>
     <string name="unit_subtract_button">Unit Subtract Button</string>
-
     <string name="show_unit_details_button">Show Unit Details</string>
+    <string name="new_army_creator_label_selected_faction">FACTION</string>
 </resources>
