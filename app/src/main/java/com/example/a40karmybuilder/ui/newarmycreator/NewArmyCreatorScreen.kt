@@ -3,10 +3,12 @@ package com.example.a40karmybuilder.ui.newarmycreator
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,6 +48,7 @@ import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
+import com.example.a40karmybuilder.ui.theme.Shapes
 import kotlinx.coroutines.launch
 
 object NewArmyCreatorDestination : NavigationDestination {
@@ -202,6 +205,11 @@ fun NewArmyCreatorInputForm(
                     onDismissRequest = { expanded = false },
                     modifier = modifier
                         .background(colorResource(R.color.unit_card_black))
+                        .border(
+                            width = 2.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = Shapes.extraSmall
+                        )
                         .width(220.dp)
                 ) {
                     allFactions.forEach { factionName ->
@@ -210,6 +218,7 @@ fun NewArmyCreatorInputForm(
                                 Text(
                                     text = factionName,
                                     style = MaterialTheme.typography.displayMedium,
+                                    color = Color.White,
                                     textAlign = TextAlign.Center,
                                     modifier = modifier
                                         .fillMaxWidth()

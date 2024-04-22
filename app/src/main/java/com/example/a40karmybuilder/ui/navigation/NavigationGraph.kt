@@ -30,7 +30,7 @@ fun a40KArmyBuilderNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = UnitSelectionDestination.route,
         modifier = modifier
     ) {
         composable(

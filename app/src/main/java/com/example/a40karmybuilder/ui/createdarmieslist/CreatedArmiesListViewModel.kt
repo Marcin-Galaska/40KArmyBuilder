@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class CreatedArmiesListViewModel(
-    armiesRepository: ArmiesRepository
+    private val armiesRepository: ArmiesRepository
 ): ViewModel() {
     val armiesUiState: StateFlow<ArmiesUiState> =
         armiesRepository.getAllItemsStream().map {
@@ -25,6 +25,14 @@ class CreatedArmiesListViewModel(
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = ArmiesUiState()
             )
+
+    suspend fun deleteArmy(id: Int) {
+        armiesUiState.value.armyList.find {
+            it.id == id
+        }?.let {
+            armiesRepository.deleteItem(it)
+        }
+    }
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

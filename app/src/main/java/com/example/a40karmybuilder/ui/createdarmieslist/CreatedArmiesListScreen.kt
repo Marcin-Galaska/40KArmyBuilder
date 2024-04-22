@@ -3,6 +3,8 @@ package com.example.a40karmybuilder.ui.createdarmieslist
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -36,17 +40,23 @@ import androidx.compose.ui.unit.sp
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.data.Army
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -55,7 +65,8 @@ import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderNewArmyListFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
-import com.example.a40karmybuilder.ui.unitselection.UnitSelectionViewModel
+import com.example.a40karmybuilder.ui.theme.Shapes
+import kotlinx.coroutines.launch
 
 object CreatedArmiesListDestination : NavigationDestination {
     override val route = "created_armies_list"
@@ -107,7 +118,6 @@ fun CreatedArmiesListScreen(
             CreatedArmiesListBody(
                 armyList = uiState.armyList,
                 onCardClick = { /* TODO */ },
-                onSettingsIconClick = { /* TODO */ },
                 modifier = Modifier
                     .fillMaxSize()
             )
@@ -120,7 +130,6 @@ fun CreatedArmiesListScreen(
 private fun CreatedArmiesListBody(
     armyList: List<Army>,
     onCardClick: (Int) -> Unit,
-    onSettingsIconClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -159,7 +168,6 @@ private fun CreatedArmiesListBody(
                     ArmyCard(
                         army = army,
                         onCardClick = { /* TODO */ },
-                        onSettingsIconClick = { /* TODO */ },
                         modifier = Modifier
                             .padding(dimensionResource(id = R.dimen.padding_small))
                     )
@@ -176,7 +184,7 @@ private fun CreatedArmiesListBody(
 fun ArmyCard(
     army: Army,
     onCardClick: () -> Unit,
-    onSettingsIconClick: () -> Unit,
+    viewModel: CreatedArmiesListViewModel = viewModel(factory = CreatedArmiesListViewModel.factory),
     maxArmyNameLength: Int = 30,
     modifier: Modifier = Modifier
 ) {
@@ -272,19 +280,75 @@ fun ArmyCard(
                         )
                     )
                 }
-                IconButton(
-                    onClick = onSettingsIconClick,
-                    modifier = modifier
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.MoreVert,
-                        tint = Color.White,
-                        contentDescription = "Army Card Settings Icon",
-                        modifier = modifier
-                            .align(Alignment.CenterVertically)
-                    )
-                }
+
+                val coroutineScope = rememberCoroutineScope()
+                ArmyOptionsMenu(
+                    onDeleteClick = {
+                        coroutineScope.launch {
+                            viewModel.deleteArmy(army.id)
+                        }
+                    }
+                )
             }
+        }
+    }
+}
+
+@Composable
+fun ArmyOptionsMenu(
+    onDeleteClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopEnd)
+    ) {
+        IconButton(onClick = { expanded = !expanded }) {
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                tint = Color.White,
+                contentDescription = "Army Card Settings Icon",
+                modifier = modifier
+            )
+        }
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = modifier
+                .background(colorResource(R.color.unit_card_black))
+                .border(
+                    width = 1.dp,
+                    color = Color.White,
+                    shape = Shapes.extraSmall
+                )
+        ) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = stringResource(R.string.created_armies_list_delete_army),
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontSize = 14.sp
+                        ),
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = modifier
+                            .fillMaxWidth()
+                    )
+                },
+                onClick = {
+                    onDeleteClick()
+                    expanded = false
+                },
+                modifier = modifier
+                    .fillMaxSize()
+                    .align(Alignment.CenterHorizontally)
+                    .size(width = 90.dp, height = 40.dp)
+            )
         }
     }
 }

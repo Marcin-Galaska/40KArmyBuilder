@@ -29,4 +29,6 @@
     <string name="unit_subtract_button">Unit Subtract Button</string>
     <string name="show_unit_details_button">Show Unit Details</string>
     <string name="new_army_creator_label_selected_faction">FACTION</string>
+    <string name="created_armies_list_delete_army">Delete</string>
+    <string name="created_armies_list_army_deleted_message">Army list deleted.</string>
 </resources>
