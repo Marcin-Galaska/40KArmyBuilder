@@ -91,7 +91,6 @@ fun UnitSelectionScreen(
     navController: NavHostController,
     units: List<com.example.a40karmybuilder.data.Unit>,
     navigateBack: () -> Unit,
-    viewModel: UnitSelectionViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -197,7 +196,6 @@ private fun UnitSelectionCard(
     val onAddUnitFailMessage = stringResource(R.string.unit_on_add_fail_message)
     val onRemoveUnitFailMessage = stringResource(R.string.unit_on_remove_fail_message)
 
-    val factionName = UnitSelectionViewModel.currentArmy.factionName
     val drawableResourceFactionName = UnitSelectionViewModel.currentArmy.factionDrawablePrefix
 
     val cardResourceId = context.resources.getIdentifier(
@@ -215,7 +213,8 @@ private fun UnitSelectionCard(
     val invulSavesValues = unit.invulnerableSave?.split('/')
 
     val wahapediaUrlUnitName = unit.name.replace(" ", "-").replace("’", "-")
-    val wahapediaUrl = "https://wahapedia.ru/wh40k10ed/factions/" + factionName.replace("_", "-") + "/" + wahapediaUrlUnitName
+    val wahapediaUrl = "https://wahapedia.ru/wh40k10ed/factions/" + UnitSelectionViewModel.currentArmy.factionName.replace("_", "-").replace(" ", "-").replace("'", "-").lowercase() + "/" + wahapediaUrlUnitName
+
 
     Card(
         shape = MaterialTheme.shapes.large,

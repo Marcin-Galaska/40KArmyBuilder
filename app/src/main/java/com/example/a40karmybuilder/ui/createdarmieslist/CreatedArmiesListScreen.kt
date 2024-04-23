@@ -114,8 +114,8 @@ fun CreatedArmiesListScreen(
         ) {
             Image(
                 modifier = modifier
-                    .fillMaxHeight(),
-                contentScale = ContentScale.FillHeight,
+                    .fillMaxSize(),
+                contentScale = ContentScale.FillWidth,
                 painter = painterResource(R.drawable.background_createdarmieslistscreen),
                 contentDescription = "Background"
             )

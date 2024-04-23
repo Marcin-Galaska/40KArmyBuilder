@@ -235,7 +235,6 @@ private fun CreatedArmyUnitCard(
         mutableStateOf(false)
     }
 
-    val factionName = UnitSelectionViewModel.currentArmy.factionName
     val drawableResourceFactionName = UnitSelectionViewModel.currentArmy.factionDrawablePrefix
     val cardResourceId = context.resources.getIdentifier(
         drawableResourceFactionName + "_card",
