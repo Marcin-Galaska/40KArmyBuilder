@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,6 +60,7 @@ import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.data.Unit
 import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
+import com.example.a40karmybuilder.ui.newarmycreator.toArmy
 import com.example.a40karmybuilder.ui.unitselection.InvulnerableSavePanel
 import com.example.a40karmybuilder.ui.unitselection.PointsCostCard
 import com.example.a40karmybuilder.ui.unitselection.ShowUnitDetailsButton
@@ -136,7 +138,7 @@ fun CreatedArmyCompositionScreen(
                     .fillMaxWidth()
             ){
                 a40KArmyBuilderPointsFloatingButton(
-                    onClick = { /* TODO */ },
+                    onClick = { /* Nothing */ },
                     maxPoints = viewModel.uiState.value.armyDetails.maxPoints.toInt(),
                     currentPoints = viewModel.uiState.value.armyDetails.currentPoints,
                     color = colorResource(secondaryColorResourceId),
@@ -145,7 +147,9 @@ fun CreatedArmyCompositionScreen(
                         .offset(y = 14.dp)
                 )
                 a40KArmyBuilderNavigationFloatingButton(
-                    onClick = { navController.navigate(UnitSelectionDestination.route) },
+                    onClick = {
+                        navController.navigate(UnitSelectionDestination.route)
+                    },
                     containerColor = colorResource(secondaryColorResourceId),
                     contentColor = Color.White,
                 )
@@ -231,9 +235,10 @@ private fun CreatedArmyUnitCard(
         mutableStateOf(false)
     }
 
-    val factionName = UnitSelectionViewModel.selectedUnitsFactionName
+    val factionName = UnitSelectionViewModel.currentArmy.factionName
+    val drawableResourceFactionName = UnitSelectionViewModel.currentArmy.factionDrawablePrefix
     val cardResourceId = context.resources.getIdentifier(
-        factionName.replace("_", "") + "_card",
+        drawableResourceFactionName + "_card",
         "drawable",
         context.packageName
     )
@@ -247,7 +252,7 @@ private fun CreatedArmyUnitCard(
     val invulSavesValues = unit.invulnerableSave?.split('/')
 
     val wahapediaUrlUnitName = unit.name.replace(" ", "-").replace("’", "-")
-    val wahapediaUrl = "https://wahapedia.ru/wh40k10ed/factions/" + factionName.replace("_", "-") + "/" + wahapediaUrlUnitName
+    val wahapediaUrl = "https://wahapedia.ru/wh40k10ed/factions/" + UnitSelectionViewModel.currentArmy.factionName.replace("_", "-").replace(" ", "-").replace("'", "-").lowercase() + "/" + wahapediaUrlUnitName
 
     Card(
         shape = MaterialTheme.shapes.large,
@@ -339,14 +344,18 @@ private fun CreatedArmyUnitCard(
                                 sv = svValues[i],
                                 w = wValues[i],
                                 ld = ldValues[i],
-                                oc = ocValues[i]
+                                oc = ocValues[i],
+                                modifier = Modifier
+                                    .offset(x = dimensionResource(R.dimen.padding_small))
                             )
                             invulSavesValues?.get(i)?.let {
                                 if (it != "")
                                     InvulnerableSavePanel(
                                         invulnerableSaveValue = it,
                                         colorResourceId = secondaryColorResourceId,
-                                        scale = 0.80f
+                                        scale = 0.80f,
+                                        modifier = Modifier
+                                            .offset(x = dimensionResource(R.dimen.padding_small))
                                     )
                             }
                         }
@@ -354,6 +363,7 @@ private fun CreatedArmyUnitCard(
                             url = wahapediaUrl,
                             color = colorResource(secondaryColorResourceId)
                         )
+                        Spacer(modifier = modifier.height(1.dp))
                     }
                 }
             }

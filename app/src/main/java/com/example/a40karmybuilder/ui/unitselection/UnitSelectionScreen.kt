@@ -39,9 +39,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,8 +74,10 @@ import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderPointsFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.AppViewModelProvider
+import com.example.a40karmybuilder.ui.createdarmycomposition.CreatedArmyCompositionViewModel
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
+import kotlinx.coroutines.launch
 
 object UnitSelectionDestination : NavigationDestination {
     override val route = "unit_selection"
@@ -93,25 +97,29 @@ fun UnitSelectionScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val context = LocalContext.current
 
-    val factionName = UnitSelectionViewModel.selectedUnitsFactionName
+    val factionName = UnitSelectionViewModel.currentArmy.factionName
+    val colorResourceFactionName = factionName.replace(" ", "_").replace("'", "_").lowercase()
+    val drawableResourceFactionName = UnitSelectionViewModel.currentArmy.factionDrawablePrefix
+
     val backgroundResourceId = context.resources.getIdentifier(
-        factionName.replace("_", "") + "_background",
+        drawableResourceFactionName + "_background",
         "drawable",
         context.packageName
     )
     val primaryColorResourceId = context.resources.getIdentifier(
-        factionName + "_primary",
+        colorResourceFactionName + "_primary",
         "color",
         context.packageName
     )
     val secondaryColorResourceId = context.resources.getIdentifier(
-        factionName + "_secondary",
+        colorResourceFactionName + "_secondary",
         "color",
         context.packageName
     )
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         floatingActionButtonPosition = FabPosition.End,
         topBar = {
             a40KArmyBuilderTopAppBar(
@@ -128,9 +136,9 @@ fun UnitSelectionScreen(
                     .fillMaxWidth()
             ){
                 a40KArmyBuilderPointsFloatingButton(
-                    onClick = { /* TODO */ },
-                    maxPoints = 2000,
-                    currentPoints = 0,
+                    onClick = { /* Nothing */ },
+                    maxPoints = UnitSelectionViewModel.currentArmy.maxPoints,
+                    currentPoints = UnitSelectionViewModel.currentArmy.currentPoints,
                     color = colorResource(secondaryColorResourceId),
                     modifier = Modifier
                         .padding(start = dimensionResource(R.dimen.padding_medium))
@@ -178,15 +186,22 @@ private fun UnitSelectionCard(
     context: Context,
     primaryColorResourceId: Int,
     secondaryColorResourceId: Int,
+    viewModel: UnitSelectionViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     var expanded by remember{
         mutableStateOf(false)
     }
 
-    val factionName = UnitSelectionViewModel.selectedUnitsFactionName
+    val coroutineScope = rememberCoroutineScope()
+    val onAddUnitFailMessage = stringResource(R.string.unit_on_add_fail_message)
+    val onRemoveUnitFailMessage = stringResource(R.string.unit_on_remove_fail_message)
+
+    val factionName = UnitSelectionViewModel.currentArmy.factionName
+    val drawableResourceFactionName = UnitSelectionViewModel.currentArmy.factionDrawablePrefix
+
     val cardResourceId = context.resources.getIdentifier(
-        factionName.replace("_", "") + "_card",
+        drawableResourceFactionName + "_card",
         "drawable",
         context.packageName
     )
@@ -299,8 +314,17 @@ private fun UnitSelectionCard(
                     }
                     Spacer(modifier = modifier.weight(2f))
                     UnitCountControls(
-                        onAddClick = { /*TODO*/ },
-                        onSubtractClick = { /*TODO*/ },
+                        onAddClick = {
+                            coroutineScope.launch {
+                                viewModel.addUnit(unit, context, onAddUnitFailMessage)
+                            }
+                        },
+                        onSubtractClick = {
+                            coroutineScope.launch {
+                                viewModel.removeUnit(unit, context, onRemoveUnitFailMessage)
+                            }
+                        },
+                        unitCount = UnitSelectionViewModel.currentArmy.units.count { it.name == unit.name },
                         color = colorResource(secondaryColorResourceId),
                         scale = .5f,
                         modifier = modifier
@@ -324,10 +348,7 @@ private fun UnitSelectionCard(
                         wahapediaUrl = wahapediaUrl,
                         secondaryColor = colorResource(secondaryColorResourceId),
                     )
-                    Spacer(
-                        modifier = modifier
-                            .height(2.dp)
-                    )
+                    Spacer(modifier = modifier.height(2.dp))
                 }
             }
         }
@@ -378,32 +399,38 @@ fun StatsPanelRow(
         StatsPanel(
             statName = "M",
             statValue = m,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
         StatsPanel(
             statName = "T",
             statValue = t,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
         StatsPanel(
             statName = "Sv",
             statValue = sv,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
         StatsPanel(
             statName = "W",
             statValue = w,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
         StatsPanel(
             statName = "Ld",
             statValue = ld,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
         StatsPanel(
             statName = "Oc",
             statValue = oc,
-            colorResourceId = colorResourceId
+            colorResourceId = colorResourceId,
+            modifier = modifier
         )
     }
 }
@@ -425,11 +452,8 @@ fun StatsPanel(
                 fontWeight = FontWeight.Bold
             ),
             color = Color.White,
-            modifier = modifier
         )
-        Box(
-            modifier = modifier
-        ) {
+        Box {
             TintedImage(
                 imageResourceId = R.drawable.unit_stat_frame,
                 colorResourceId = colorResourceId,
@@ -444,7 +468,7 @@ fun StatsPanel(
                 text = statValue,
                 style = MaterialTheme.typography.labelLarge,
                 color = colorResource(colorResourceId),
-                modifier = modifier
+                modifier = Modifier
                     .align(Alignment.Center)
             )
         }
@@ -477,7 +501,7 @@ fun InvulnerableSavePanel(
                 fontSize = 24.sp
             ),
             color = colorResource(colorResourceId),
-            modifier = modifier
+            modifier = Modifier
                 .offset(x = 21.dp, y = 6.dp)
         )
     }

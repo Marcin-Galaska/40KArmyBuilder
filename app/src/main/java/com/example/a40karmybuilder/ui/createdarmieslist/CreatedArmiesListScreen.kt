@@ -66,7 +66,9 @@ import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
 import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorDestination
+import com.example.a40karmybuilder.ui.newarmycreator.toArmy
 import com.example.a40karmybuilder.ui.theme.Shapes
+import com.example.a40karmybuilder.ui.unitselection.UnitSelectionViewModel
 import kotlinx.coroutines.launch
 
 object CreatedArmiesListDestination : NavigationDestination {
@@ -169,7 +171,10 @@ private fun CreatedArmiesListBody(
                 items(items = armyList, key = { it.id }) { army ->
                     ArmyCard(
                         army = army,
-                        onCardClick = { onCardClick(army) },
+                        onCardClick = {
+                            UnitSelectionViewModel.currentArmy = army
+                            onCardClick(army)
+                        },
                         modifier = Modifier
                             .padding(dimensionResource(id = R.dimen.padding_small))
                     )

@@ -106,7 +106,8 @@ fun a40KArmyBuilderNavHost(
             route = UnitSelectionDestination.route
         ) {
             val viewModel: UnitSelectionViewModel = viewModel(factory = AppViewModelProvider.factory)
-            val allUnits by viewModel.getAllUnits(UnitSelectionViewModel.selectedUnitsFactionName).collectAsState(null)
+            val targetFaction = UnitSelectionViewModel.currentArmy.factionName.replace(" ", "_").replace("'", "_").lowercase()
+            val allUnits by viewModel.getAllUnits(targetFaction).collectAsState(null)
 
             allUnits?.let { units ->
                 UnitSelectionScreen(

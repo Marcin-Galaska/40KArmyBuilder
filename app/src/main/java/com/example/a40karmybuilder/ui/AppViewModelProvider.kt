@@ -41,7 +41,8 @@ object AppViewModelProvider {
         initializer {
             val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)
             UnitSelectionViewModel(
-                application.unitDatabase.unitDao()
+                application.unitDatabase.unitDao(),
+                a40karmybuilderApplication().container.armiesRepository
             )
         }
     }

@@ -32,4 +32,6 @@
     <string name="show_unit_details_button">Show Unit Details</string>
 
     <string name="created_army_composition_no_units_message">Your army list is empty. Tap the button below to add units.</string>
+    <string name="unit_on_add_fail_message">Couldn\'t add selected unit.</string>
+    <string name="unit_on_remove_fail_message">Couldn\'t remove selected unit.</string>
 </resources>
