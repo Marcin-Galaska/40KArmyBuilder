@@ -17,11 +17,5 @@ class UnitSelectionViewModel(
 
     companion object {
         var selectedUnitsFactionName: String = "adeptus_mechanicus"
-        val factory : ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)
-                UnitSelectionViewModel(application.unitDatabase.unitDao())
-            }
-        }
     }
 }

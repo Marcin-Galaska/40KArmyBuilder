@@ -17,11 +17,5 @@ class FactionViewModel(
 
     companion object {
         var selectedFactionId: Int = 0
-        val factory : ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as a40KArmyBuilderApplication)
-                FactionViewModel(application.factionDatabase.factionDao())
-            }
-        }
     }
 }

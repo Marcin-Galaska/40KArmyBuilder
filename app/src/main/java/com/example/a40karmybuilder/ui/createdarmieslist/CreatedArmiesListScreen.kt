@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.sp
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.data.Army
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -62,9 +61,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
-import com.example.a40karmybuilder.a40KArmyBuilderNewArmyListFloatingButton
+import com.example.a40karmybuilder.a40KArmyBuilderNavigationFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
+import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
+import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorDestination
 import com.example.a40karmybuilder.ui.theme.Shapes
 import kotlinx.coroutines.launch
 
@@ -78,7 +79,8 @@ object CreatedArmiesListDestination : NavigationDestination {
 @Composable
 fun CreatedArmiesListScreen(
     navController: NavHostController,
-    viewModel: CreatedArmiesListViewModel = viewModel(factory = CreatedArmiesListViewModel.factory),
+    navigateToArmyComposition: (Int) -> Unit,
+    viewModel: CreatedArmiesListViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.armiesUiState.collectAsState()
@@ -98,8 +100,8 @@ fun CreatedArmiesListScreen(
             )
         },
         floatingActionButton = {
-            a40KArmyBuilderNewArmyListFloatingButton(
-                navController = navController
+            a40KArmyBuilderNavigationFloatingButton(
+                onClick = { navController.navigate(NewArmyCreatorDestination.route) }
             )
         }
     ) { innerPadding ->
@@ -117,7 +119,7 @@ fun CreatedArmiesListScreen(
             )
             CreatedArmiesListBody(
                 armyList = uiState.armyList,
-                onCardClick = { /* TODO */ },
+                onCardClick = { navigateToArmyComposition(it.id) },
                 modifier = Modifier
                     .fillMaxSize()
             )
@@ -129,7 +131,7 @@ fun CreatedArmiesListScreen(
 @Composable
 private fun CreatedArmiesListBody(
     armyList: List<Army>,
-    onCardClick: (Int) -> Unit,
+    onCardClick: (Army) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -167,7 +169,7 @@ private fun CreatedArmiesListBody(
                 items(items = armyList, key = { it.id }) { army ->
                     ArmyCard(
                         army = army,
-                        onCardClick = { /* TODO */ },
+                        onCardClick = { onCardClick(army) },
                         modifier = Modifier
                             .padding(dimensionResource(id = R.dimen.padding_small))
                     )
@@ -177,14 +179,12 @@ private fun CreatedArmiesListBody(
     }
 }
 
-
-
 @SuppressLint("DiscouragedApi")
 @Composable
 fun ArmyCard(
     army: Army,
     onCardClick: () -> Unit,
-    viewModel: CreatedArmiesListViewModel = viewModel(factory = CreatedArmiesListViewModel.factory),
+    viewModel: CreatedArmiesListViewModel = viewModel(factory = AppViewModelProvider.factory),
     maxArmyNameLength: Int = 30,
     modifier: Modifier = Modifier
 ) {
@@ -300,14 +300,15 @@ fun ArmyOptionsMenu(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val context = LocalContext.current
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .wrapContentSize(Alignment.TopEnd)
     ) {
-        IconButton(onClick = { expanded = !expanded }) {
+        IconButton(
+            onClick = { expanded = !expanded }
+        ) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
                 tint = Color.White,

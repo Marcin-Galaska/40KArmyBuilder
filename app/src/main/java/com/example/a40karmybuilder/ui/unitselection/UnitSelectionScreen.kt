@@ -71,6 +71,7 @@ import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderPointsFloatingButton
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
+import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 
@@ -86,7 +87,7 @@ fun UnitSelectionScreen(
     navController: NavHostController,
     units: List<com.example.a40karmybuilder.data.Unit>,
     navigateBack: () -> Unit,
-    viewModel: UnitSelectionViewModel = viewModel(factory = UnitSelectionViewModel.factory),
+    viewModel: UnitSelectionViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -121,12 +122,21 @@ fun UnitSelectionScreen(
             )
         },
         floatingActionButton = {
-            a40KArmyBuilderPointsFloatingButton(
-                onClick = { /* TODO */ },
-                maxPoints = 2000,
-                currentPoints = 0,
-                color = colorResource(secondaryColorResourceId)
-            )
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ){
+                a40KArmyBuilderPointsFloatingButton(
+                    onClick = { /* TODO */ },
+                    maxPoints = 2000,
+                    currentPoints = 0,
+                    color = colorResource(secondaryColorResourceId),
+                    modifier = Modifier
+                        .padding(start = dimensionResource(R.dimen.padding_medium))
+                        .offset(y = 14.dp)
+                )
+            }
         },
         bottomBar = {
             a40KArmyBuilderBottomAppBar(
@@ -163,12 +173,11 @@ fun UnitSelectionScreen(
 
 @SuppressLint("DiscouragedApi")
 @Composable
-fun UnitSelectionCard(
+private fun UnitSelectionCard(
     unit: com.example.a40karmybuilder.data.Unit,
     context: Context,
     primaryColorResourceId: Int,
     secondaryColorResourceId: Int,
-    viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     var expanded by remember{
@@ -326,7 +335,7 @@ fun UnitSelectionCard(
 }
 
 @Composable
-private fun PointsCostCard(
+fun PointsCostCard(
     pointsCost: Int,
     colorResourceId: Int,
     modifier: Modifier = Modifier
@@ -355,7 +364,7 @@ private fun PointsCostCard(
 }
 
 @Composable
-private fun StatsPanelRow(
+fun StatsPanelRow(
     colorResourceId: Int,
     m: String,
     t: String,
@@ -400,7 +409,7 @@ private fun StatsPanelRow(
 }
 
 @Composable
-private fun StatsPanel(
+fun StatsPanel(
     statName: String,
     statValue: String,
     colorResourceId: Int,
@@ -443,7 +452,7 @@ private fun StatsPanel(
 }
 
 @Composable
-private fun InvulnerableSavePanel(
+fun InvulnerableSavePanel(
     colorResourceId: Int,
     invulnerableSaveValue: String,
     scale: Float = 1f,
@@ -475,7 +484,7 @@ private fun InvulnerableSavePanel(
 }
 
 @Composable
-private fun TintedImage(
+fun TintedImage(
     imageResourceId: Int,
     colorResourceId: Int,
     scale: Float = 1f,
@@ -493,7 +502,7 @@ private fun TintedImage(
 }
 
 @Composable
-private fun ShowUnitDetailsButton(
+fun ShowUnitDetailsButton(
     expanded: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -580,7 +589,7 @@ private fun UnitDetails(
 }
 
 @Composable
-private fun WahapediaUriButton(
+fun WahapediaUriButton(
     url: String,
     color: Color,
     modifier: Modifier = Modifier
@@ -641,7 +650,7 @@ private fun UnitCountControls(
 ) {
     Card(
         shape = MaterialTheme.shapes.medium,
-        border = BorderStroke(width = 2.dp * scale, color = Color.White),
+        border = BorderStroke(width = 2.dp, color = Color.White),
         colors = CardDefaults.cardColors(containerColor = color),
         modifier = Modifier
             .scale(scale)

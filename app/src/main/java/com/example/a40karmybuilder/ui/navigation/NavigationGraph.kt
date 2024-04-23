@@ -6,10 +6,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListDestination
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListScreen
+import com.example.a40karmybuilder.ui.createdarmycomposition.CreatedArmyCompositionDestination
+import com.example.a40karmybuilder.ui.createdarmycomposition.CreatedArmyCompositionScreen
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsDestination
 import com.example.a40karmybuilder.ui.factionoverviewdetails.FactionOverviewDetailsScreen
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListDestination
@@ -30,7 +35,7 @@ fun a40KArmyBuilderNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = UnitSelectionDestination.route,
+        startDestination = HomeDestination.route,
         modifier = modifier
     ) {
         composable(
@@ -53,7 +58,7 @@ fun a40KArmyBuilderNavHost(
         composable(
             route = FactionOverviewDetailsDestination.route
         ) {
-            val viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory)
+            val viewModel: FactionViewModel = viewModel(factory = AppViewModelProvider.factory)
             val faction by viewModel.getFaction(FactionViewModel.selectedFactionId).collectAsState(null)
 
             faction?.let { fac ->
@@ -78,14 +83,29 @@ fun a40KArmyBuilderNavHost(
             route = CreatedArmiesListDestination.route
         ) {
             CreatedArmiesListScreen(
-                navController = navController
+                navController = navController,
+                navigateToArmyComposition = {
+                    navController.navigate("${CreatedArmyCompositionDestination.route}/${it}")
+                }
+            )
+        }
+
+        composable(
+            route = CreatedArmyCompositionDestination.routeWithArgs,
+            arguments = listOf(navArgument(CreatedArmyCompositionDestination.armyIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            CreatedArmyCompositionScreen(
+                navController = navController,
+                navigateBack = { navController.navigateUp() }
             )
         }
 
         composable(
             route = UnitSelectionDestination.route
         ) {
-            val viewModel: UnitSelectionViewModel = viewModel(factory = UnitSelectionViewModel.factory)
+            val viewModel: UnitSelectionViewModel = viewModel(factory = AppViewModelProvider.factory)
             val allUnits by viewModel.getAllUnits(UnitSelectionViewModel.selectedUnitsFactionName).collectAsState(null)
 
             allUnits?.let { units ->

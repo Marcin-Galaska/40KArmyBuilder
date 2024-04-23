@@ -11,37 +11,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
-import com.example.a40karmybuilder.ui.factionoverviewlist.FactionViewModel
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 
 object HomeDestination : NavigationDestination {
@@ -54,7 +44,6 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     navigateToFactionOverviewList: () -> Unit,
-    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -85,7 +74,7 @@ fun HomeScreen(
                     .padding(dimensionResource(id = R.dimen.padding_medium)),
                 verticalArrangement = Arrangement.Center
             ) {
-                Spacer(modifier = Modifier.weight(1f)) // Spacer to push the text to the center
+                Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = stringResource(R.string.home_screen_text),
                     style = MaterialTheme.typography.displayLarge.copy(
@@ -99,14 +88,16 @@ fun HomeScreen(
                     modifier = modifier
                         .padding(innerPadding)
                 )
-                Spacer(modifier = Modifier.weight(1f)) // Spacer to push the button to the bottom
+                Spacer(modifier = Modifier.weight(1f))
                 OutlinedButton(
                     onClick = navigateToFactionOverviewList,
                     shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.home_screen_button),
+                        color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
@@ -124,7 +115,7 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .padding(dimensionResource(id = R.dimen.padding_tiny))
                 )
-                Spacer(modifier = Modifier.height(20.dp)) // Spacer to push the button above system nav bar
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }

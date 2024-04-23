@@ -59,6 +59,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.widget.TextViewCompat.setTextAppearance
 import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
+import com.example.a40karmybuilder.ui.AppViewModelProvider
 import kotlinx.coroutines.flow.first
 
 object FactionOverviewListDestination : NavigationDestination {
@@ -71,7 +72,7 @@ object FactionOverviewListDestination : NavigationDestination {
 fun FactionOverviewListScreen(
     navController: NavHostController,
     navigateToFactionDetails: () -> Unit,
-    viewModel: FactionViewModel = viewModel(factory = FactionViewModel.factory),
+    viewModel: FactionViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()

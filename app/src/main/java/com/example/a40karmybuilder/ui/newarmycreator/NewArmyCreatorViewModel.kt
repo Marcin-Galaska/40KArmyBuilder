@@ -18,14 +18,6 @@ class NewArmyCreatorViewModel(
     var armyUiState by mutableStateOf(ArmyUiState())
         private set
 
-    companion object {
-        val factory : ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                NewArmyCreatorViewModel(a40karmybuilderApplication().container.armiesRepository)
-            }
-        }
-    }
-
     fun updateUiState(armyDetails: ArmyDetails) {
         armyUiState =
             ArmyUiState(

@@ -36,11 +36,6 @@ class CreatedArmiesListViewModel(
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
-        val factory : ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                CreatedArmiesListViewModel(a40karmybuilderApplication().container.armiesRepository)
-            }
-        }
     }
 }
 

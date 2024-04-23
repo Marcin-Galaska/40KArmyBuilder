@@ -8,9 +8,9 @@ import androidx.room.TypeConverters
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class UnitConverters {
+class UnitConverters{
     @TypeConverter
-    fun fromList(value : List<Unit>) = Json.encodeToString(value)
+    fun fromList(value: List<Unit>) = Json.encodeToString(value)
 
     @TypeConverter
     fun toList(value: String) = Json.decodeFromString<List<Unit>>(value)

@@ -11,7 +11,6 @@ class a40KArmyBuilderApplication : Application() {
     val armyDatabase: ArmyDatabase by lazy { ArmyDatabase.getDatabase(this) }
     val factionDatabase: FactionDatabase by lazy { FactionDatabase.getDatabase(this) }
     val unitDatabase: UnitDatabase by lazy { UnitDatabase.getDatabase(this) }
-    // To co poniżej pewnie zbędne
 
     lateinit var container: AppContainer
 

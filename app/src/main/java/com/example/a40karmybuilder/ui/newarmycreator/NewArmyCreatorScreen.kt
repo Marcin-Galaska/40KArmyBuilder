@@ -47,6 +47,7 @@ import androidx.navigation.NavHostController
 import com.example.a40karmybuilder.R
 import com.example.a40karmybuilder.a40KArmyBuilderBottomAppBar
 import com.example.a40karmybuilder.a40KArmyBuilderTopAppBar
+import com.example.a40karmybuilder.ui.AppViewModelProvider
 import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 import com.example.a40karmybuilder.ui.theme.Shapes
 import kotlinx.coroutines.launch
@@ -62,7 +63,7 @@ object NewArmyCreatorDestination : NavigationDestination {
 fun NewArmyCreatorScreen(
     navController: NavHostController,
     navigateBack: () -> Unit,
-    viewModel: NewArmyCreatorViewModel = viewModel(factory = NewArmyCreatorViewModel.factory),
+    viewModel: NewArmyCreatorViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()

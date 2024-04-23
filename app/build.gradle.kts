@@ -70,7 +70,7 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
     implementation(libs.androidx.appcompat)
-    // Was 'ksp' instead of 'annotationProcessor/kapt'
+
     ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
 
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")

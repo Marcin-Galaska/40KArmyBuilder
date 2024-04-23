@@ -51,7 +51,6 @@ import com.example.a40karmybuilder.R.string
 import com.example.a40karmybuilder.ui.createdarmieslist.CreatedArmiesListDestination
 import com.example.a40karmybuilder.ui.factionoverviewlist.FactionOverviewListDestination
 import com.example.a40karmybuilder.ui.navigation.a40KArmyBuilderNavHost
-import com.example.a40karmybuilder.ui.newarmycreator.NewArmyCreatorDestination
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -60,15 +59,17 @@ fun a40KArmyBuilderApp(navController: NavHostController = rememberNavController(
 }
 
 @Composable
-fun a40KArmyBuilderNewArmyListFloatingButton(
-    navController: NavHostController,
+fun a40KArmyBuilderNavigationFloatingButton(
+    onClick: () -> Unit,
+    containerColor: Color = colorResource(R.color.unit_card_black),
+    contentColor: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier
 ) {
     FloatingActionButton(
-        onClick = { navController.navigate(NewArmyCreatorDestination.route) },
+        onClick = onClick,
         shape = MaterialTheme.shapes.medium,
-        containerColor = Color.Transparent,
-        modifier = modifier
+        containerColor = containerColor,
+        modifier = Modifier
             .size(width = 95.dp, height = 95.dp)
             .padding(dimensionResource(R.dimen.padding_medium))
     ) {
@@ -77,7 +78,7 @@ fun a40KArmyBuilderNewArmyListFloatingButton(
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             ),
-            border = BorderStroke(width = 1.dp, color = Color.White),
+            border = BorderStroke(width = 1.dp, color = contentColor),
             modifier = Modifier
                 .fillMaxSize()
         ) {
@@ -90,7 +91,7 @@ fun a40KArmyBuilderNewArmyListFloatingButton(
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = stringResource(R.string.created_armies_list_floating_button_icon),
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = contentColor,
                     modifier = modifier
                         .scale(1.5f)
                 )
@@ -115,7 +116,7 @@ fun a40KArmyBuilderPointsFloatingButton(
         containerColor = Color.White,
         modifier = modifier
             .size(width = 130.dp, height = 80.dp)
-            .offset(x = (-215).dp, y = 15.dp)
+
             .padding(dimensionResource(R.dimen.padding_medium))
     ) {
         Card(
