@@ -12,8 +12,6 @@
 
     <string name="faction_overview_list_top_bar_text">FACTIONS</string>
 
-    <string name="faction_overview_details_top_bar_text">FACTION OVERVIEW</string>
-
     <string name="created_armies_list_top_bar_text">ARMY LISTS</string>
     <string name="created_armies_list_no_armies_message">You are yet to create an army list. Tap the button below to start creating your first list.</string>
     <string name="created_armies_list_floating_button_icon">Created Armies List New Army List Button Icon</string>
@@ -30,8 +28,8 @@
     <string name="unit_add_button">Unit Add Button</string>
     <string name="unit_subtract_button">Unit Subtract Button</string>
     <string name="show_unit_details_button">Show Unit Details</string>
-
-    <string name="created_army_composition_no_units_message">Your army list is empty. Tap the button below to add units.</string>
     <string name="unit_on_add_fail_message">Couldn\'t add selected unit.</string>
     <string name="unit_on_remove_fail_message">Couldn\'t remove selected unit.</string>
+
+    <string name="created_army_composition_no_units_message">Your army list is empty. Tap the button below to add units.</string>
 </resources>

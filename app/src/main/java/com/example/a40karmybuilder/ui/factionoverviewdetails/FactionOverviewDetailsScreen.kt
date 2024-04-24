@@ -46,7 +46,7 @@ import com.example.a40karmybuilder.ui.navigation.NavigationDestination
 
 object FactionOverviewDetailsDestination : NavigationDestination {
     override val route = "faction_overview_details"
-    override val titleRes = R.string.faction_overview_details_top_bar_text
+    override val titleRes = 0   // N/A
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
