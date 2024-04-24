@@ -56,7 +56,6 @@ fun FactionOverviewDetailsScreen(
     navController: NavHostController,
     faction: Faction,
     navigateBack: () -> Unit,
-    viewModel: FactionViewModel = viewModel(factory = AppViewModelProvider.factory),
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -71,14 +70,13 @@ fun FactionOverviewDetailsScreen(
         "drawable",
         context.packageName
     )
-    // val UiState by viewModel.UiState.collectAsState()
 
     Scaffold(
         modifier = modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             a40KArmyBuilderTopAppBar(
-                title = faction.name,
+                title = faction.name.uppercase(),
                 canNavigateBack = true,
                 navigateUp = navigateBack,
                 scrollBehavior = scrollBehavior
