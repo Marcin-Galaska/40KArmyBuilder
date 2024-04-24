@@ -9,7 +9,7 @@
 ### Screens
  ![Home Screen](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/21b21ac0-7a57-4283-a1de-418637dcb371) ![Faction Overview](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/05c8bf0a-f04b-4f0f-b6a5-6fdeea0ab8a4)
  
- ![Faction Details 1](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/b1c3e042-3344-41ee-9fe1-e65ffdfdf76e) ![Faction Details 2](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/79ec7a58-752f-45ea-8f08-3ce1465dd33f)
+ ![Faction Details 1](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/1c429fe0-e03d-471e-845b-42ad2a738e6c) ![Faction Details 2](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/79ec7a58-752f-45ea-8f08-3ce1465dd33f)
 
  ![Army List Creator 1](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/8a897538-eabd-443e-bedd-0697603a35da) ![Army List Creator 2](https://github.com/Marcin-Galaska/40KArmyBuilder/assets/106023363/66f9c9ec-505c-4eff-b452-ebc8b0bd5312)
 
